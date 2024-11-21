@@ -9,10 +9,10 @@ func BubbleSort(arr []int) []int {
 	copy(arrCopy, arr)
 
 	continueIterating := true
-  end := len(arrCopy)-2
+	end := len(arrCopy) - 2
 
 	for continueIterating {
-    continueIterating = false
+		continueIterating = false
 		for firstMarker := 0; firstMarker <= end; firstMarker++ {
 			secondMarker := firstMarker + 1
 			if arrCopy[firstMarker] > arrCopy[secondMarker] {
@@ -20,7 +20,7 @@ func BubbleSort(arr []int) []int {
 				continueIterating = true
 			}
 		}
-    end--
+		end--
 	}
 
 	return arrCopy
