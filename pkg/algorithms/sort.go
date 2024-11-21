@@ -12,11 +12,12 @@ func BubbleSort(arr []int) []int {
 		return arrCopy
 	}
 
-	swapped := true
+	continueIterating := true
 	changes := 0
+  end := len(arrCopy)-2
 
-	for swapped {
-		for firstMarker := 0; firstMarker <= len(arrCopy)-2; firstMarker++ {
+	for continueIterating {
+		for firstMarker := 0; firstMarker <= end; firstMarker++ {
 			secondMarker := firstMarker + 1
 			if arrCopy[firstMarker] > arrCopy[secondMarker] {
 				temp := arrCopy[firstMarker]
@@ -26,9 +27,10 @@ func BubbleSort(arr []int) []int {
 			}
 		}
 		if changes == 0 {
-			swapped = false
+			continueIterating = false
 		}
 		changes = 0
+    end--
 	}
 
 	return arrCopy

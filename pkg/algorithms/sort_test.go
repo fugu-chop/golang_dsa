@@ -13,8 +13,8 @@ func TestBubbleSort(t *testing.T) {
 		outputSlice []int
 	}{
 		"sorts": {
-			inputSlice:  []int{9, 7, 5, 6, 1},
-			outputSlice: []int{1, 5, 6, 7, 9},
+			inputSlice:  []int{9, 7, 5, 6, 1, 2},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
 		},
 		"works on single length slices": {
 			inputSlice:  []int{5},
