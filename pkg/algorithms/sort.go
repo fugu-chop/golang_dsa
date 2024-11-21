@@ -8,20 +8,27 @@ func BubbleSort(arr []int) []int {
 	arrCopy := make([]int, len(arr))
 	copy(arrCopy, arr)
 
-	swapped := false
+	if len(arrCopy) == 1 {
+		return arrCopy
+	}
 
-	for !swapped {
+	swapped := true
+	changes := 0
+
+	for swapped {
 		for firstMarker := 0; firstMarker <= len(arrCopy)-2; firstMarker++ {
 			secondMarker := firstMarker + 1
 			if arrCopy[firstMarker] > arrCopy[secondMarker] {
 				temp := arrCopy[firstMarker]
 				arrCopy[firstMarker] = arrCopy[secondMarker]
 				arrCopy[secondMarker] = temp
-				if !swapped {
-					swapped = true
-				}
+				changes++
 			}
 		}
+		if changes == 0 {
+			swapped = false
+		}
+		changes = 0
 	}
 
 	return arrCopy
