@@ -30,13 +30,13 @@ func TestBubbleSort(t *testing.T) {
 		t.Run(testName, func(t *testing.T) {
 			got := algorithms.BubbleSort(test.inputSlice)
 			if !reflect.DeepEqual(got, test.outputSlice) {
-				t.Fatalf("BubbleSort does not match: got: %+v, want: %+v",
+				t.Fatalf("BubbleSort did not sort correctly: got: %+v, want: %+v",
 					got,
 					test.outputSlice,
 				)
 			}
-			if &got == &test.inputSlice {
-				t.Fatalf("BubbleSort has not shallow copied input slice: %v", test.inputSlice)
+			if !reflect.DeepEqual(got, test.inputSlice) {
+				t.Fatalf("BubbleSort did not mutate slice: %+v", test.outputSlice)
 			}
 		})
 	}
