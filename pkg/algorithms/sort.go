@@ -16,9 +16,7 @@ func BubbleSort(arr []int) []int {
 		for firstMarker := 0; firstMarker <= end; firstMarker++ {
 			secondMarker := firstMarker + 1
 			if arrCopy[firstMarker] > arrCopy[secondMarker] {
-				temp := arrCopy[firstMarker]
-				arrCopy[firstMarker] = arrCopy[secondMarker]
-				arrCopy[secondMarker] = temp
+				arrCopy[firstMarker], arrCopy[secondMarker] = arrCopy[secondMarker], arrCopy[firstMarker]
 				continueIterating = true
 			}
 		}
