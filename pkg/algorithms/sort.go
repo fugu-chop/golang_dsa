@@ -29,11 +29,10 @@ with int sorted ascending (i.e. the original slice is mutated).
 */
 func SelectionSort(arr []int) []int {
 	startIdx := 0
-	arrLen := len(arr) - 1
 
 	for startIdx < len(arr) {
 		lowestNumIdx := startIdx
-		for i := startIdx; i <= arrLen; i++ {
+		for i := startIdx; i < len(arr); i++ {
 			if arr[i] < arr[lowestNumIdx] {
 				lowestNumIdx = i
 			}
