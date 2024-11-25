@@ -37,7 +37,9 @@ func SelectionSort(arr []int) []int {
 				lowestNumIdx = i
 			}
 		}
-		arr[startIdx], arr[lowestNumIdx] = arr[lowestNumIdx], arr[startIdx]
+		if lowestNumIdx != startIdx {
+			arr[startIdx], arr[lowestNumIdx] = arr[lowestNumIdx], arr[startIdx]
+		}
 		startIdx++
 	}
 
