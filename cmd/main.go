@@ -12,8 +12,11 @@ func main() {
 	idx := algorithms.BinarySearch(sampleSlice, 7)
 	fmt.Println(idx)
 
-	unsortedSlice := []int{2, 1, 3, 9, 7, 5}
+	unsortedBubbleSortSlice := []int{2, 1, 3, 9, 7, 5}
+	sortedBubbleSortSlice := algorithms.BubbleSort(unsortedBubbleSortSlice)
+	fmt.Println(sortedBubbleSortSlice)
 
-	sortedSlice := algorithms.BubbleSort(unsortedSlice)
-	fmt.Println(sortedSlice)
+	unsortedSelectionSortSlice := []int{2, 1, 9, 7, 5, 3}
+	sortedSelectionSortSlice := algorithms.SelectionSort(unsortedSelectionSortSlice)
+	fmt.Println(sortedSelectionSortSlice)
 }
