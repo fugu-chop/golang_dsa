@@ -51,17 +51,30 @@ InsertionSort takes an unsorted slice of int and returns that slice
 with int sorted ascending (i.e. the original slice is mutated) using the Insertion sort algorithm.
 */
 func InsertionSort(arr []int) []int {
-	startIdx := 1
+	var (
+		originalStartIdx = 1
+		startIdx         = originalStartIdx
+		swapped          = false
+	)
+
 	for startIdx < len(arr) {
-		for i := startIdx; i >= 0; i-- {
+		for i := startIdx - 1; i >= 0; i-- {
 			if arr[startIdx] < arr[i] {
 				arr[startIdx], arr[i] = arr[i], arr[startIdx]
 				startIdx = i
+				swapped = true
 			} else {
-				continue
+				break
 			}
 		}
-		startIdx++
+
+		if swapped {
+			originalStartIdx++
+			startIdx = originalStartIdx
+			swapped = false
+		} else {
+			startIdx++
+		}
 	}
 
 	return arr

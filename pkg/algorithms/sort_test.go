@@ -16,6 +16,14 @@ func TestBubbleSort(t *testing.T) {
 			inputSlice:  []int{9, 7, 5, 6, 1, 2},
 			outputSlice: []int{1, 2, 5, 6, 7, 9},
 		},
+		"sorts again": {
+			inputSlice:  []int{5, 9, 7, 6, 1, 2},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
+		"sorts more": {
+			inputSlice:  []int{5, 7, 9, 6, 2, 1},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
 		"works on single length slices": {
 			inputSlice:  []int{5},
 			outputSlice: []int{5},
@@ -51,6 +59,14 @@ func TestSelectionSort(t *testing.T) {
 			inputSlice:  []int{9, 7, 5, 6, 1, 2},
 			outputSlice: []int{1, 2, 5, 6, 7, 9},
 		},
+		"sorts again": {
+			inputSlice:  []int{5, 9, 7, 6, 1, 2},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
+		"sorts more": {
+			inputSlice:  []int{5, 7, 9, 6, 2, 1},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
 		"works on single length slices": {
 			inputSlice:  []int{5},
 			outputSlice: []int{5},
@@ -83,7 +99,15 @@ func TestInsertionSort(t *testing.T) {
 		outputSlice []int
 	}{
 		"sorts": {
-			inputSlice:  []int{9, 7, 5, 6, 1, 2},
+			inputSlice:  []int{9, 5, 7, 6, 1, 2},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
+		"sorts again": {
+			inputSlice:  []int{5, 9, 7, 6, 1, 2},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
+		"sorts more": {
+			inputSlice:  []int{5, 7, 9, 6, 2, 1},
 			outputSlice: []int{1, 2, 5, 6, 7, 9},
 		},
 		"works on single length slices": {
