@@ -45,3 +45,24 @@ func SelectionSort(arr []int) []int {
 
 	return arr
 }
+
+/*
+InsertionSort takes an unsorted slice of int and returns that slice
+with int sorted ascending (i.e. the original slice is mutated) using the Insertion sort algorithm.
+*/
+func InsertionSort(arr []int) []int {
+	startIdx := 1
+	for startIdx < len(arr) {
+		for i := startIdx; i >= 0; i-- {
+			if arr[startIdx] < arr[i] {
+				arr[startIdx], arr[i] = arr[i], arr[startIdx]
+				startIdx = i
+			} else {
+				continue
+			}
+		}
+		startIdx++
+	}
+
+	return arr
+}

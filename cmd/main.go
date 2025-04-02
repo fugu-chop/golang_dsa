@@ -8,7 +8,6 @@ import (
 
 func main() {
 	sampleSlice := []int{0, 1, 2, 3, 5, 7, 9}
-
 	idx := algorithms.BinarySearch(sampleSlice, 7)
 	fmt.Println(idx)
 
@@ -19,4 +18,8 @@ func main() {
 	unsortedSelectionSortSlice := []int{2, 1, 9, 7, 5, 3}
 	sortedSelectionSortSlice := algorithms.SelectionSort(unsortedSelectionSortSlice)
 	fmt.Println(sortedSelectionSortSlice)
+
+	unsortedInsertionSortSlice := []int{2, 1, 9, 7, 5, 3}
+	sortedInsertionSortSlice := algorithms.InsertionSort(unsortedInsertionSortSlice)
+	fmt.Println(sortedInsertionSortSlice)
 }
