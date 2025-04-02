@@ -54,7 +54,6 @@ func InsertionSort(arr []int) []int {
 	var (
 		originalStartIdx = 1
 		startIdx         = originalStartIdx
-		swapped          = false
 	)
 
 	for startIdx < len(arr) {
@@ -62,19 +61,13 @@ func InsertionSort(arr []int) []int {
 			if arr[startIdx] < arr[i] {
 				arr[startIdx], arr[i] = arr[i], arr[startIdx]
 				startIdx = i
-				swapped = true
 			} else {
 				break
 			}
 		}
 
-		if swapped {
-			originalStartIdx++
-			startIdx = originalStartIdx
-			swapped = false
-		} else {
-			startIdx++
-		}
+		originalStartIdx++
+		startIdx = originalStartIdx
 	}
 
 	return arr
