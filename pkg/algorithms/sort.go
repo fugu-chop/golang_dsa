@@ -52,22 +52,22 @@ with int sorted ascending (i.e. the original slice is mutated) using the Inserti
 */
 func InsertionSort(arr []int) []int {
 	var (
-		originalStartIdx = 1
-		startIdx         = originalStartIdx
+		startIdx   = 1
+		workingIdx = startIdx
 	)
 
-	for startIdx < len(arr) {
-		for i := startIdx - 1; i >= 0; i-- {
-			if arr[startIdx] < arr[i] {
-				arr[startIdx], arr[i] = arr[i], arr[startIdx]
-				startIdx = i
+	for workingIdx < len(arr) {
+		for i := workingIdx - 1; i >= 0; i-- {
+			if arr[workingIdx] < arr[i] {
+				arr[workingIdx], arr[i] = arr[i], arr[workingIdx]
+				workingIdx = i
 			} else {
 				break
 			}
 		}
 
-		originalStartIdx++
-		startIdx = originalStartIdx
+		startIdx++
+		workingIdx = startIdx
 	}
 
 	return arr
