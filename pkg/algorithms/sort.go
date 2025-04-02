@@ -1,8 +1,8 @@
 package algorithms
 
 /*
-Bubble Sort takes an unsorted slice of int and returns that slice
-with int sorted ascending (i.e. the original slice is mutated).
+BubbleSort takes an unsorted slice of int and returns that slice
+with int sorted ascending (i.e. the original slice is mutated) using a bubble sort algorithm.
 */
 func BubbleSort(arr []int) []int {
 	continueIterating := true
@@ -24,8 +24,8 @@ func BubbleSort(arr []int) []int {
 }
 
 /*
-Selection Sort takes an unsorted slice of int and returns that slice
-with int sorted ascending (i.e. the original slice is mutated).
+SelectionSort takes an unsorted slice of int and returns that slice
+with int sorted ascending (i.e. the original slice is mutated) using the Selection sort algorithm.
 */
 func SelectionSort(arr []int) []int {
 	startIdx := 0
