@@ -7,6 +7,8 @@ import (
 )
 
 func TestBinarySearch(t *testing.T) {
+	t.Parallel()
+
 	data := map[string]struct {
 		inputSlice []int
 		inputInt   int
@@ -24,13 +26,17 @@ func TestBinarySearch(t *testing.T) {
 		},
 	}
 
-	for testCase, testData := range data {
+	for testCase, test := range data {
 		t.Run(testCase, func(t *testing.T) {
-			got := algorithms.BinarySearch(testData.inputSlice, testData.inputInt)
-			if got != testData.wantIdx {
+			tc := test
+
+			t.Parallel()
+
+			got := algorithms.BinarySearch(tc.inputSlice, tc.inputInt)
+			if got != tc.wantIdx {
 				t.Fatalf("BinarySearch index does not match: got: %d, want: %d",
 					got,
-					testData.wantIdx,
+					tc.wantIdx,
 				)
 			}
 		})

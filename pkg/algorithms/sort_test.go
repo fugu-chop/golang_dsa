@@ -8,6 +8,8 @@ import (
 )
 
 func TestBubbleSort(t *testing.T) {
+	t.Parallel()
+
 	data := map[string]struct {
 		inputSlice  []int
 		outputSlice []int
@@ -36,21 +38,27 @@ func TestBubbleSort(t *testing.T) {
 
 	for testName, test := range data {
 		t.Run(testName, func(t *testing.T) {
-			got := algorithms.BubbleSort(test.inputSlice)
-			if !reflect.DeepEqual(got, test.outputSlice) {
+			tc := test
+
+			t.Parallel()
+
+			got := algorithms.BubbleSort(tc.inputSlice)
+			if !reflect.DeepEqual(got, tc.outputSlice) {
 				t.Fatalf("BubbleSort did not sort correctly: got: %+v, want: %+v",
 					got,
-					test.outputSlice,
+					tc.outputSlice,
 				)
 			}
-			if !reflect.DeepEqual(got, test.inputSlice) {
-				t.Fatalf("BubbleSort did not mutate slice: %+v", test.outputSlice)
+			if !reflect.DeepEqual(got, tc.inputSlice) {
+				t.Fatalf("BubbleSort did not mutate slice: %+v", tc.outputSlice)
 			}
 		})
 	}
 }
 
 func TestSelectionSort(t *testing.T) {
+	t.Parallel()
+
 	data := map[string]struct {
 		inputSlice  []int
 		outputSlice []int
@@ -79,21 +87,27 @@ func TestSelectionSort(t *testing.T) {
 
 	for testName, test := range data {
 		t.Run(testName, func(t *testing.T) {
-			got := algorithms.SelectionSort(test.inputSlice)
-			if !reflect.DeepEqual(got, test.outputSlice) {
+			tc := test
+
+			t.Parallel()
+
+			got := algorithms.SelectionSort(tc.inputSlice)
+			if !reflect.DeepEqual(got, tc.outputSlice) {
 				t.Fatalf("SelectionSort did not sort correctly: got: %+v, want: %+v",
 					got,
-					test.outputSlice,
+					tc.outputSlice,
 				)
 			}
-			if !reflect.DeepEqual(got, test.inputSlice) {
-				t.Fatalf("SelectionSort did not mutate slice: %+v", test.outputSlice)
+			if !reflect.DeepEqual(got, tc.inputSlice) {
+				t.Fatalf("SelectionSort did not mutate slice: %+v", tc.outputSlice)
 			}
 		})
 	}
 }
 
 func TestInsertionSort(t *testing.T) {
+	t.Parallel()
+
 	data := map[string]struct {
 		inputSlice  []int
 		outputSlice []int
@@ -122,15 +136,19 @@ func TestInsertionSort(t *testing.T) {
 
 	for testName, test := range data {
 		t.Run(testName, func(t *testing.T) {
-			got := algorithms.InsertionSort(test.inputSlice)
-			if !reflect.DeepEqual(got, test.outputSlice) {
+			tc := test
+
+			t.Parallel()
+
+			got := algorithms.InsertionSort(tc.inputSlice)
+			if !reflect.DeepEqual(got, tc.outputSlice) {
 				t.Fatalf("InsertionSort did not sort correctly: got: %+v, want: %+v",
 					got,
-					test.outputSlice,
+					tc.outputSlice,
 				)
 			}
-			if !reflect.DeepEqual(got, test.inputSlice) {
-				t.Fatalf("InsertionSort did not mutate slice: %+v", test.outputSlice)
+			if !reflect.DeepEqual(got, tc.inputSlice) {
+				t.Fatalf("InsertionSort did not mutate slice: %+v", tc.outputSlice)
 			}
 		})
 	}
