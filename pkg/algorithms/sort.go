@@ -2,7 +2,8 @@ package algorithms
 
 /*
 BubbleSort takes an unsorted slice of int and returns that slice
-with int sorted ascending (i.e. the original slice is mutated) using a bubble sort algorithm.
+with int sorted ascending (i.e. the original slice is mutated)
+using a bubble sort algorithm.
 */
 func BubbleSort(arr []int) []int {
 	continueIterating := true
@@ -25,7 +26,8 @@ func BubbleSort(arr []int) []int {
 
 /*
 SelectionSort takes an unsorted slice of int and returns that slice
-with int sorted ascending (i.e. the original slice is mutated) using the Selection sort algorithm.
+with int sorted ascending (i.e. the original slice is mutated) using
+the Selection sort algorithm.
 */
 func SelectionSort(arr []int) []int {
 	startIdx := 0
@@ -48,22 +50,20 @@ func SelectionSort(arr []int) []int {
 
 /*
 InsertionSort takes an unsorted slice of int and returns that slice
-with int sorted ascending (i.e. the original slice is mutated) using the Insertion sort algorithm.
+with int sorted ascending (i.e. the original slice is mutated) using
+the Insertion sort algorithm.
 */
 func InsertionSort(arr []int) []int {
 	for i := 1; i < len(arr); i++ {
-		position := i - 1
+		key := arr[i]
+		insertionIdx := i - 1
 
-		for position >= 0 {
-			if arr[position] > arr[i] {
-				arr[position+1] = arr[position]
-				position--
-			} else {
-				break
-			}
+		for insertionIdx >= 0 && arr[insertionIdx] > key {
+			arr[insertionIdx+1] = arr[insertionIdx]
+			insertionIdx -= 1
 		}
 
-		arr[position+1] = arr[i]
+		arr[insertionIdx+1] = key
 	}
 
 	return arr
