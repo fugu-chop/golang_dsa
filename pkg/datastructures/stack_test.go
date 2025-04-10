@@ -68,44 +68,47 @@ func TestStackPop(t *testing.T) {
 	})
 }
 
-func TestStackRead_EmptyStack(t *testing.T) {
-	t.Parallel()
-
-	// Empty read
-	stack := datastructures.Stack()
-	result, err := stack.Read()
-
-	if result != -1 {
-		t.Fatalf("Read on empty stack did not return -1, returned: %d", result)
-	}
-
-	if err == nil {
-		t.Fatal("Read on empty stack did not return error")
-	}
-
-	if err.Error() != "stack is empty" {
-		t.Fatalf("Read on empty stack did not return correct error message: %s", err.Error())
-	}
-}
-
 func TestStackRead(t *testing.T) {
 	t.Parallel()
 
-	stack := datastructures.Stack()
+	t.Run("empty read", func(t *testing.T) {
+		t.Parallel()
 
-	for i := 0; i < 5; i++ {
-		_ = stack.Push(i)
-	}
+		stack := datastructures.Stack()
+		result, err := stack.Read()
 
-	for i := 5; i > -1; i-- {
-		got, err := stack.Read()
-		if err != nil {
-			t.Fatalf("Read failed: %v", err)
+		if result != -1 {
+			t.Fatalf("Read on empty stack did not return -1, returned: %d", result)
 		}
 
-		// Read is non-destructive and idempotent
-		if got != 4 {
-			t.Fatalf("Read did not return correct result - got: %d, want: %d", got, 4)
+		if err == nil {
+			t.Fatal("Read on empty stack did not return error")
 		}
-	}
+
+		if err.Error() != "stack is empty" {
+			t.Fatalf("Read on empty stack did not return correct error message: %s", err.Error())
+		}
+	})
+
+	t.Run("populated stack", func(t *testing.T) {
+		t.Parallel()
+
+		stack := datastructures.Stack()
+
+		for i := 0; i < 5; i++ {
+			_ = stack.Push(i)
+		}
+
+		for i := 5; i > -1; i-- {
+			got, err := stack.Read()
+			if err != nil {
+				t.Fatalf("Read failed: %v", err)
+			}
+
+			// Read is non-destructive and idempotent
+			if got != 4 {
+				t.Fatalf("Read did not return correct result - got: %d, want: %d", got, 4)
+			}
+		}
+	})
 }
