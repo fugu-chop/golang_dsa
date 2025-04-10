@@ -43,20 +43,18 @@ func TestStackPop(t *testing.T) {
 		t.Parallel()
 
 		stack := datastructures.Stack()
-		input := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-		output := []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
 
-		for i := 0; i < len(input); i++ {
-			stack.Push(input[i])
+		for i := 0; i < 10; i++ {
+			_ = stack.Push(i)
 		}
 
-		for i := 0; i < len(output); i++ {
+		for i := 9; i > -1; i-- {
 			got, err := stack.Pop()
 
-			if got != output[i] {
+			if got != i {
 				t.Fatalf(
 					"Pop on non-empty stack did not return result in order, expected: %d, got: %d",
-					output[i],
+					i,
 					got,
 				)
 			}
