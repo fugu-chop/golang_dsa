@@ -1,7 +1,6 @@
 package datastructures_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
@@ -10,52 +9,13 @@ import (
 func TestStackPush(t *testing.T) {
 	t.Parallel()
 
-	data := map[string]struct {
-		input int
-		want  int
-		err   error
-	}{
-		"first push and read": {
-			input: 3,
-			want:  3,
-			err:   nil,
-		},
-		"second push and read": {
-			input: 4,
-			want:  4,
-			err:   nil,
-		},
-	}
+	stack := datastructures.Stack()
+	for i := 0; i < 10; i++ {
+		got := stack.Push(i)
 
-	for testName, test := range data {
-		t.Run(testName, func(t *testing.T) {
-			tc := test
-
-			t.Parallel()
-
-			stack := datastructures.Stack()
-			got := stack.Push(tc.input)
-			if got != tc.want {
-				t.Fatalf("Stack did not push correctly: got: %d, want: %d",
-					got,
-					tc.want,
-				)
-			}
-			if tc.err != nil {
-				t.Fatalf("Push returned an error: %+v", tc.err)
-			}
-
-			read, readErr := stack.Read()
-			if read != tc.want {
-				t.Fatalf("Stack did not push correctly: got: %d, want: %d",
-					got,
-					tc.want,
-				)
-			}
-			if readErr != nil {
-				t.Fatalf("Read returned an error: %+v", tc.err)
-			}
-		})
+		if got != i {
+			t.Fatalf("Stack did not push correctly: got: %d, want: %d", got, i)
+		}
 	}
 }
 
@@ -88,14 +48,10 @@ func TestStackPop(t *testing.T) {
 
 		for i := 0; i < len(input); i++ {
 			stack.Push(input[i])
-			fmt.Println(input[i])
 		}
 
 		for i := 0; i < len(output); i++ {
 			got, err := stack.Pop()
-
-			fmt.Println(stack)
-			fmt.Println(got)
 
 			if got != output[i] {
 				t.Fatalf(
@@ -112,7 +68,7 @@ func TestStackPop(t *testing.T) {
 	})
 }
 
-func TestStackRead(t *testing.T) {
+func TestStackRead_EmptyStack(t *testing.T) {
 	t.Parallel()
 
 	// Empty read
@@ -129,5 +85,27 @@ func TestStackRead(t *testing.T) {
 
 	if err.Error() != "stack is empty" {
 		t.Fatalf("Read on empty stack did not return correct error message: %s", err.Error())
+	}
+}
+
+func TestStackRead(t *testing.T) {
+	t.Parallel()
+
+	stack := datastructures.Stack()
+
+	for i := 0; i < 5; i++ {
+		_ = stack.Push(i)
+	}
+
+	for i := 5; i > -1; i-- {
+		got, err := stack.Read()
+		if err != nil {
+			t.Fatalf("Read failed: %v", err)
+		}
+
+		// Read is non-destructive and idempotent
+		if got != 4 {
+			t.Fatalf("Read did not return correct result - got: %d, want: %d", got, 4)
+		}
 	}
 }
