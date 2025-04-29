@@ -30,9 +30,7 @@ with int sorted ascending (i.e. the original slice is mutated) using
 the Selection sort algorithm.
 */
 func SelectionSort(arr []int) []int {
-	startIdx := 0
-
-	for startIdx < len(arr) {
+	for startIdx := range arr {
 		lowestNumIdx := startIdx
 		for i := startIdx; i < len(arr); i++ {
 			if arr[i] < arr[lowestNumIdx] {
@@ -42,7 +40,6 @@ func SelectionSort(arr []int) []int {
 		if lowestNumIdx != startIdx {
 			arr[startIdx], arr[lowestNumIdx] = arr[lowestNumIdx], arr[startIdx]
 		}
-		startIdx++
 	}
 
 	return arr
