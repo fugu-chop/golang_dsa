@@ -32,7 +32,7 @@ the Selection sort algorithm.
 func SelectionSort(arr []int) []int {
 	for startIdx := range arr {
 		lowestNumIdx := startIdx
-		for i := startIdx; i < len(arr); i++ {
+		for i := startIdx + 1; i < len(arr); i++ {
 			if arr[i] < arr[lowestNumIdx] {
 				lowestNumIdx = i
 			}
