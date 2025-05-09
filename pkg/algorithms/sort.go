@@ -65,3 +65,40 @@ func InsertionSort(arr []int) []int {
 
 	return arr
 }
+
+/*
+partition mutates a slice by setting a pivot index (one position to the
+left of rightIdx) and ensuring all elements to the left of the pivot
+index are lower than the pivot value by swapping values (though not
+necessarily sorted).
+
+It also ensures that the pivot is in the correct position for sorting
+purposes. It is intended to be called recursively as part of
+a Quicksort algorithm.
+*/
+func partition(arr []int, leftIdx int, rightIdx int) int {
+	pivotIdx := rightIdx
+	pivot := arr[pivotIdx]
+	rightIdx--
+
+	for {
+		for arr[leftIdx] < pivot {
+			leftIdx += 1
+		}
+
+		for arr[rightIdx] > pivot {
+			rightIdx -= 1
+		}
+
+		if leftIdx >= rightIdx {
+			break
+		}
+
+		arr[leftIdx], arr[rightIdx] = arr[rightIdx], arr[leftIdx]
+		leftIdx += 1
+	}
+
+	arr[leftIdx], arr[pivotIdx] = arr[pivotIdx], arr[leftIdx]
+
+	return leftIdx
+}
