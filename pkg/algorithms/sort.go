@@ -67,27 +67,52 @@ func InsertionSort(arr []int) []int {
 }
 
 /*
-partition mutates a slice by setting a pivot index (one position to the
+Quicksort takes an unsorted slice of int and uses partitioning
+to sort the slice with int ascending using the Quicksort algorithm.
+*/
+func Quicksort(arr []int, leftIdx int, rightIdx int) {
+	if rightIdx-leftIdx <= 0 {
+		return
+	}
+
+	pivotIdx := partition(arr, leftIdx, rightIdx)
+	Quicksort(arr, leftIdx, pivotIdx-1)
+	Quicksort(arr, pivotIdx+1, rightIdx)
+}
+
+/*
+`partition` mutates a slice by setting a pivot index (one position to the
 left of rightIdx) and ensuring all elements to the left of the pivot
 index are lower than the pivot value by swapping values (though not
 necessarily sorted).
 
-It also ensures that the pivot is in the correct position for sorting
-purposes. It is intended to be called recursively as part of
-a Quicksort algorithm.
+This ensures that the pivot is in the correct position after an iteration
+of the `partition` function.
+
+`partition` is intended to be called recursively as part of a Quicksort algorithm.
 */
 func partition(arr []int, leftIdx int, rightIdx int) int {
 	pivotIdx := rightIdx
 	pivot := arr[pivotIdx]
-	rightIdx--
+	rightIdx -= 1
 
 	for {
+		/*
+			This doesn't need an OOB guard as arr[leftIdx]
+			will never exceed pivot in an already sorted
+			ascending slice
+		*/
 		for arr[leftIdx] < pivot {
-			leftIdx += 1
+			leftIdx++
 		}
 
-		for arr[rightIdx] > pivot {
-			rightIdx -= 1
+		/*
+			Requires an OOB guard as in a reverse sorted
+			slice, arr[rightIdx] will always be greater
+			than pivot
+		*/
+		for arr[rightIdx] > pivot && rightIdx > 0 {
+			rightIdx--
 		}
 
 		if leftIdx >= rightIdx {
@@ -95,7 +120,7 @@ func partition(arr []int, leftIdx int, rightIdx int) int {
 		}
 
 		arr[leftIdx], arr[rightIdx] = arr[rightIdx], arr[leftIdx]
-		leftIdx += 1
+		leftIdx++
 	}
 
 	arr[leftIdx], arr[pivotIdx] = arr[pivotIdx], arr[leftIdx]

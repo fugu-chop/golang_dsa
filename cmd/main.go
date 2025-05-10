@@ -22,4 +22,8 @@ func main() {
 	unsortedInsertionSortSlice := []int{2, 1, 9, 7, 5, 3}
 	sortedInsertionSortSlice := algorithms.InsertionSort(unsortedInsertionSortSlice)
 	fmt.Println(sortedInsertionSortSlice)
+
+	unsortedQuicksortSlice := []int{2, 1, 9, 7, 5, 3}
+	algorithms.Quicksort(unsortedQuicksortSlice, 0, len(unsortedQuicksortSlice)-1)
+	fmt.Println(unsortedQuicksortSlice)
 }
