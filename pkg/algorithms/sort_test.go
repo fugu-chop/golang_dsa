@@ -42,7 +42,8 @@ func TestBubbleSort(t *testing.T) {
 
 			t.Parallel()
 
-			got := algorithms.BubbleSort(tc.inputSlice)
+			algorithms.BubbleSort(tc.inputSlice)
+			got := tc.inputSlice
 			if !reflect.DeepEqual(got, tc.outputSlice) {
 				t.Fatalf("BubbleSort did not sort correctly: got: %+v, want: %+v",
 					got,
@@ -91,7 +92,8 @@ func TestSelectionSort(t *testing.T) {
 
 			t.Parallel()
 
-			got := algorithms.SelectionSort(tc.inputSlice)
+			algorithms.SelectionSort(tc.inputSlice)
+			got := tc.inputSlice
 			if !reflect.DeepEqual(got, tc.outputSlice) {
 				t.Fatalf("SelectionSort did not sort correctly: got: %+v, want: %+v",
 					got,
@@ -140,7 +142,8 @@ func TestInsertionSort(t *testing.T) {
 
 			t.Parallel()
 
-			got := algorithms.InsertionSort(tc.inputSlice)
+			algorithms.InsertionSort(tc.inputSlice)
+			got := tc.inputSlice
 			if !reflect.DeepEqual(got, tc.outputSlice) {
 				t.Fatalf("InsertionSort did not sort correctly: got: %+v, want: %+v",
 					got,

@@ -1,11 +1,10 @@
 package algorithms
 
 /*
-BubbleSort takes an unsorted slice of int and returns that slice
-with int sorted ascending (i.e. the original slice is mutated)
-using a bubble sort algorithm.
+BubbleSort takes an unsorted slice of int and mutates that
+slice such that the ints are ascending using a bubble sort algorithm.
 */
-func BubbleSort(arr []int) []int {
+func BubbleSort(arr []int) {
 	continueIterating := true
 	end := len(arr) - 2
 
@@ -20,16 +19,13 @@ func BubbleSort(arr []int) []int {
 		}
 		end--
 	}
-
-	return arr
 }
 
 /*
-SelectionSort takes an unsorted slice of int and returns that slice
-with int sorted ascending (i.e. the original slice is mutated) using
-the Selection sort algorithm.
+SelectionSort takes an unsorted slice of int and mutates that
+slice such that the ints are ascending using a selection sort algorithm.
 */
-func SelectionSort(arr []int) []int {
+func SelectionSort(arr []int) {
 	for startIdx := range arr {
 		lowestNumIdx := startIdx
 		for i := startIdx + 1; i < len(arr); i++ {
@@ -41,16 +37,13 @@ func SelectionSort(arr []int) []int {
 			arr[startIdx], arr[lowestNumIdx] = arr[lowestNumIdx], arr[startIdx]
 		}
 	}
-
-	return arr
 }
 
 /*
-InsertionSort takes an unsorted slice of int and returns that slice
-with int sorted ascending (i.e. the original slice is mutated) using
-the Insertion sort algorithm.
+InsertionSort takes an unsorted slice of int and mutates that
+slice such that the ints are ascending using an insertion sort algorithm.
 */
-func InsertionSort(arr []int) []int {
+func InsertionSort(arr []int) {
 	for i := 1; i < len(arr); i++ {
 		key := arr[i]
 		insertionIdx := i - 1
@@ -62,8 +55,6 @@ func InsertionSort(arr []int) []int {
 
 		arr[insertionIdx+1] = key
 	}
-
-	return arr
 }
 
 /*
