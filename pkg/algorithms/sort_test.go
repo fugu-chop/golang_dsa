@@ -177,7 +177,7 @@ func TestQuicksort(t *testing.T) {
 			outputSlice: []int{1, 2, 5, 6, 7, 9},
 		},
 		"doesn't get out of bounds errors": {
-			inputSlice:  []int{1, 2, 5, 6, 7, 9},
+			inputSlice:  []int{9, 7, 6, 5, 2, 1},
 			outputSlice: []int{1, 2, 5, 6, 7, 9},
 		},
 		"works on single length slices": {
