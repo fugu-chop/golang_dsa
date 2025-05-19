@@ -3,7 +3,7 @@ package datastructures
 import "fmt"
 
 /*
-LinkedList is an implementation of a Linked List
+LinkedList is an implementation of a single Linked List
 data structure. It contains a pointer to a `node` type.
 */
 
@@ -76,6 +76,9 @@ func (l *LinkedList) IndexOf(value int) (int, error) {
 /*
 InsertAt inserts a node containing a value of `value` at the `idx`th
 node of the Linked List.
+
+It returns an error if there is no complete chain of nodes leading to
+the node at index `idx`.
 */
 func (l *LinkedList) InsertAt(idx int, val int) error {
 	newNode := &node{
