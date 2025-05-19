@@ -24,8 +24,8 @@ type node struct {
 	next  *node
 }
 
-// New returns a pointer to a new LinkedList.
-func New(val int) *LinkedList {
+// NewLinkedList returns a pointer to a new LinkedList.
+func NewLinkedList(val int) *LinkedList {
 	return &LinkedList{
 		node: &node{
 			value: &val,
@@ -71,4 +71,34 @@ func (l *LinkedList) IndexOf(value int) (int, error) {
 	}
 
 	return -1, fmt.Errorf("value '%d' does not exist in linked list", value)
+}
+
+/*
+InsertAt inserts a node containing a value of `value` at the `idx`th
+node of the Linked List.
+*/
+func (l *LinkedList) InsertAt(idx int, val int) error {
+	newNode := &node{
+		value: &val,
+	}
+
+	if idx == 0 {
+		newNode.next = l.node.next
+		l.node = newNode
+		return nil
+	}
+
+	n := l.node
+
+	for range idx - 1 {
+		n = n.next
+		if n == nil {
+			return fmt.Errorf("cannot insert node at index %d due to broken chain", idx)
+		}
+	}
+
+	newNode.next = n.next
+	n.next = newNode
+
+	return nil
 }
