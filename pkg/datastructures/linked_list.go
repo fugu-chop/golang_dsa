@@ -105,3 +105,31 @@ func (l *LinkedList) InsertAt(idx int, val int) error {
 
 	return nil
 }
+
+func (l *LinkedList) DeleteAt(idx int) error {
+	if idx == 0 {
+		next := l.node.next
+		if next == nil {
+			return fmt.Errorf("cannot delete at index %d due to no more nodes", idx)
+		}
+		l.node = next
+
+		return nil
+	}
+
+	n := l.node
+
+	for range idx - 1 {
+		n = n.next
+		if n == nil {
+			return fmt.Errorf("cannot delete node at index %d due to broken chain", idx)
+		}
+	}
+
+	previousNode := n
+	if n.next != nil {
+		previousNode.next = n.next.next
+	}
+
+	return nil
+}
