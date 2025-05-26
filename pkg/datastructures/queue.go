@@ -1,39 +1,47 @@
 package datastructures
 
-import "errors"
-
 type queue struct {
-	queue []int
+	firstNode *node
+	lastNode  *node
 }
 
-func Queue() queue {
+func Queue(val int) queue {
+	newNode := &node{
+		value: &val,
+	}
+
 	return queue{
-		queue: []int{},
+		firstNode: newNode,
+		lastNode:  newNode,
 	}
 }
 
 func (q *queue) Enqueue(num int) int {
-	q.queue = append(q.queue, num)
+	newNode := &node{
+		value: &num,
+	}
+
+	q.lastNode.next = newNode
+	q.lastNode = newNode
 
 	return num
 }
 
 func (q *queue) Dequeue() (int, error) {
-	if len(q.queue) == 0 {
-		return -1, errors.New("queue is empty")
+	val := *q.firstNode.value
+	next := q.firstNode.next
+	q.firstNode = next
+
+	penultimateNode := q.firstNode
+	for penultimateNode.next != nil {
+		penultimateNode = penultimateNode.next
 	}
 
-	first := q.queue[0]
+	q.lastNode = penultimateNode
 
-	q.queue = q.queue[1:len(q.queue)]
-
-	return first, nil
+	return val, nil
 }
 
 func (q *queue) Read() (int, error) {
-	if len(q.queue) == 0 {
-		return -1, errors.New("queue is empty")
-	}
-
-	return q.queue[0], nil
+	return *q.firstNode.value, nil
 }
