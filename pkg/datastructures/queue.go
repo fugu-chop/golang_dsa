@@ -1,5 +1,7 @@
 package datastructures
 
+import "errors"
+
 /*
 queue is an implementation of a queue data structure. It contains a pointer
 to the first `node` type and the last `node` type it encompasses.
@@ -9,7 +11,7 @@ type queue struct {
 	lastNode  *node
 }
 
-// Queue returns a pointer to a new queue.
+// Queue returns a pointer to a new queue with a `node` of `val` value.
 func Queue(val int) queue {
 	newNode := &node{
 		value: val,
@@ -39,17 +41,29 @@ func (q *queue) Enqueue(num int) int {
 /*
 Dequeue removes the pointer to the current `firstNode` and replaces it with
 a pointer to the node that was it's previous `next` node. It returns the value
-of the current `firstNode` (before pointer reassignment).
+of the current `firstNode` (before pointer reassignment), or an error if there
+are no nodes in the queue.
 */
-func (q *queue) Dequeue() int {
+func (q *queue) Dequeue() (int, error) {
+	if q.firstNode == nil {
+		return -1, errors.New("queue does not have any active nodes")
+	}
+
 	val := q.firstNode.value
 	next := q.firstNode.next
 	q.firstNode = next
 
-	return val
+	return val, nil
 }
 
-// Read returns the value associated with the `node` at the `firstNode` reference.
-func (q *queue) Read() int {
-	return q.firstNode.value
+/*
+Read returns the value associated with the `node` at the `firstNode` reference,
+or an error if there are no nodes in the queue.
+*/
+func (q *queue) Read() (int, error) {
+	if q.firstNode == nil {
+		return -1, errors.New("queue does not have any active nodes")
+	}
+
+	return q.firstNode.value, nil
 }
