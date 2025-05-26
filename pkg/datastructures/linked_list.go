@@ -3,15 +3,14 @@ package datastructures
 import "fmt"
 
 /*
-LinkedList is an implementation of a single Linked List
+linkedList is an implementation of a single Linked List
 data structure. It contains a pointer to a `node` type.
 */
-
 type linkedList struct {
 	node *node
 }
 
-// NewLinkedList returns a pointer to a new LinkedList.
+// NewLinkedList returns a pointer to a new linkedList.
 func LinkedList(val int) *linkedList {
 	return &linkedList{
 		node: &node{

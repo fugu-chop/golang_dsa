@@ -29,24 +29,16 @@ func TestQueueDequeue(t *testing.T) {
 	}
 
 	for i := range 9 {
-		got, err := queue.Dequeue()
+		got := queue.Dequeue()
 
 		if got != i {
 			t.Fatalf("Dequeue on non-empty queue did not return result in order, expected: %d, got: %d", i, got)
 		}
 
-		if err != nil {
-			t.Fatalf("Dequeue on non-empty queue returned error: %+v", err)
-		}
-
 		// Read should now read off the new firstNode
-		got, err = queue.Read()
+		got = queue.Read()
 		if i+1 != got {
 			t.Fatalf("last node was not correctly replaced, got: %d, want: %d", got, i+1)
-		}
-
-		if err != nil {
-			t.Fatalf("Read on non-empty queue returned error: %+v", err)
 		}
 	}
 }
@@ -61,10 +53,7 @@ func TestQueueRead(t *testing.T) {
 	}
 
 	for range 100 {
-		result, err := queue.Read()
-		if err != nil {
-			t.Fatalf("Read returned an error: %v", err)
-		}
+		result := queue.Read()
 		if result != 0 {
 			t.Fatalf("Read should not mutate the queue - got: %d, want 0", result)
 		}
