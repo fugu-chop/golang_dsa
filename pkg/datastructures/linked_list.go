@@ -11,19 +11,6 @@ type LinkedList struct {
 	node *node
 }
 
-/*
-The node type is intended to be used as the node
-component of LinkedList. Each node has two attributes:
-
-1. A pointer to an int; and
-
-2. A pointer to the next `node`.
-*/
-type node struct {
-	value *int
-	next  *node
-}
-
 // NewLinkedList returns a pointer to a new LinkedList.
 func NewLinkedList(val int) *LinkedList {
 	return &LinkedList{
