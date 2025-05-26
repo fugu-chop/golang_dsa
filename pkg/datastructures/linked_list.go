@@ -7,13 +7,13 @@ LinkedList is an implementation of a single Linked List
 data structure. It contains a pointer to a `node` type.
 */
 
-type LinkedList struct {
+type linkedList struct {
 	node *node
 }
 
 // NewLinkedList returns a pointer to a new LinkedList.
-func NewLinkedList(val int) *LinkedList {
-	return &LinkedList{
+func LinkedList(val int) *linkedList {
+	return &linkedList{
 		node: &node{
 			value: &val,
 		},
@@ -26,7 +26,7 @@ reaches the node at index `idx`.
 
 It returns an error if there is no node at index `idx`.
 */
-func (l *LinkedList) ReadAt(idx int) (int, error) {
+func (l *linkedList) ReadAt(idx int) (int, error) {
 	n := l.node
 	for range idx {
 		if n.next == nil {
@@ -45,7 +45,7 @@ returning the 'index' of the node that contains the value.
 It returns an error if the `value` does not exist within any of the nodes in
 the Linked List.
 */
-func (l *LinkedList) IndexOf(value int) (int, error) {
+func (l *linkedList) IndexOf(value int) (int, error) {
 	idx := 0
 	n := l.node
 
@@ -67,7 +67,7 @@ node of the Linked List.
 It returns an error if there is no complete chain of nodes leading to
 the node at index `idx`.
 */
-func (l *LinkedList) InsertAt(idx int, val int) error {
+func (l *linkedList) InsertAt(idx int, val int) error {
 	newNode := &node{
 		value: &val,
 	}
@@ -98,7 +98,7 @@ DeleteAt removes a node at the `idx`th node of a Linked List.
 It returns an error if there is no complete chain of nodes
 leading to the node at the `idx`th index.
 */
-func (l *LinkedList) DeleteAt(idx int) error {
+func (l *linkedList) DeleteAt(idx int) error {
 	if idx == 0 {
 		next := l.node.next
 		if next != nil {

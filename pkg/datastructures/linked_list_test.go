@@ -12,7 +12,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("inserts when no element exists at next node", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -46,7 +46,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("inserts at index 0", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.InsertAt(0, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -72,7 +72,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("inserts when next node already exists", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -85,7 +85,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("returns an error when node chan is broken", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -127,7 +127,7 @@ func TestLinkedList_IndexOf(t *testing.T) {
 	t.Run("returns the index of a value that exists", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 97); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -145,7 +145,7 @@ func TestLinkedList_IndexOf(t *testing.T) {
 	t.Run("returns an error if the value does not exist", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -167,7 +167,7 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	t.Run("deletes when element exists at node", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -201,7 +201,7 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	t.Run("returns an error when node does not exist", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.DeleteAt(1); err == nil {
 			t.Fatal("error for DeleteAt should not be nil")
@@ -215,7 +215,7 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	t.Run("handles zero index deletion", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.NewLinkedList(0)
+		linkedList := datastructures.LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
