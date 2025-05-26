@@ -32,13 +32,6 @@ func (q *queue) Dequeue() (int, error) {
 	next := q.firstNode.next
 	q.firstNode = next
 
-	penultimateNode := q.firstNode
-	for penultimateNode.next != nil {
-		penultimateNode = penultimateNode.next
-	}
-
-	q.lastNode = penultimateNode
-
 	return val, nil
 }
 
