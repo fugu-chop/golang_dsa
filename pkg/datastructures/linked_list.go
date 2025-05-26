@@ -122,17 +122,19 @@ func (l *LinkedList) DeleteAt(idx int) error {
 	}
 
 	n := l.node
+	var previousNode *node
 
-	for range idx - 1 {
+	for range idx {
+		previousNode = n
 		n = n.next
+
 		if n == nil {
 			return fmt.Errorf("cannot delete node at index %d due to broken chain", idx)
 		}
 	}
 
-	previousNode := n
 	if n.next != nil {
-		previousNode.next = n.next.next
+		previousNode.next = n.next
 	}
 
 	return nil
