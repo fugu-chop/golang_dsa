@@ -62,7 +62,7 @@ func (l *LinkedList) IndexOf(value int) (int, error) {
 	idx := 0
 	n := l.node
 
-	for n.next != nil {
+	for n != nil {
 		if *n.value == value {
 			return idx, nil
 		}
@@ -106,13 +106,17 @@ func (l *LinkedList) InsertAt(idx int, val int) error {
 	return nil
 }
 
+/*
+DeleteAt removes a node at the `idx`th node of a Linked List.
+It returns an error if there is no complete chain of nodes
+leading to the node at the `idx`th index.
+*/
 func (l *LinkedList) DeleteAt(idx int) error {
 	if idx == 0 {
 		next := l.node.next
-		if next == nil {
-			return fmt.Errorf("cannot delete at index %d due to no more nodes", idx)
+		if next != nil {
+			l.node = next
 		}
-		l.node = next
 
 		return nil
 	}
