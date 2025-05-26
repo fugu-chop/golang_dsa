@@ -9,9 +9,9 @@ import (
 func TestQueueEnqueue(t *testing.T) {
 	t.Parallel()
 
-	queue := datastructures.Queue()
+	queue := datastructures.Queue(0)
 
-	for i := 0; i < 5; i++ {
+	for i := 1; i < 5; i++ {
 		got := queue.Enqueue(i)
 		if got != i {
 			t.Fatalf("Queue did not Enqueue correctly: got: %d, want: %d", got, i)
@@ -22,84 +22,51 @@ func TestQueueEnqueue(t *testing.T) {
 func TestQueueDequeue(t *testing.T) {
 	t.Parallel()
 
-	t.Run("empty queue", func(t *testing.T) {
-		t.Parallel()
+	queue := datastructures.Queue(0)
 
-		queue := datastructures.Queue()
-		result, err := queue.Dequeue()
+	for i := 1; i < 10; i++ {
+		_ = queue.Enqueue(i)
+	}
 
-		if err == nil {
-			t.Fatal("Dequeue on empty queue should have returned an error")
-		}
-		if err.Error() != "queue is empty" {
-			t.Fatalf("Dequeue on empty queue should have returned \"queue is empty\" error message, got: %s", err.Error())
-		}
-		if result != -1 {
-			t.Fatalf("Dequeue on empty queue did not return -1, returned %d instead", result)
-		}
-	})
+	for i := range 9 {
+		got, err := queue.Dequeue()
 
-	t.Run("populated queue", func(t *testing.T) {
-		t.Parallel()
-
-		queue := datastructures.Queue()
-
-		for i := 0; i < 10; i++ {
-			_ = queue.Enqueue(i)
+		if got != i {
+			t.Fatalf("Dequeue on non-empty queue did not return result in order, expected: %d, got: %d", i, got)
 		}
 
-		for i := 0; i < 10; i++ {
-			got, err := queue.Dequeue()
-
-			if got != i {
-				t.Fatalf("Dequeue on non-empty queue did not return result in order, expected: %d, got: %d", i, got)
-			}
-
-			if err != nil {
-				t.Fatalf("Dequeue on non-empty queue returned error: %+v", err)
-			}
+		if err != nil {
+			t.Fatalf("Dequeue on non-empty queue returned error: %+v", err)
 		}
-	})
+
+		// Read should now read off the new firstNode
+		got, err = queue.Read()
+		if i+1 != got {
+			t.Fatalf("last node was not correctly replaced, got: %d, want: %d", got, i+1)
+		}
+
+		if err != nil {
+			t.Fatalf("Read on non-empty queue returned error: %+v", err)
+		}
+	}
 }
 
 func TestQueueRead(t *testing.T) {
 	t.Parallel()
 
-	t.Run("empty queue", func(t *testing.T) {
-		t.Parallel()
-		queue := datastructures.Queue()
+	queue := datastructures.Queue(0)
+
+	for i := range 5 {
+		_ = queue.Enqueue(i)
+	}
+
+	for range 100 {
 		result, err := queue.Read()
-
-		if result != -1 {
-			t.Fatalf("Read on empty queue did not return -1, returned: %d", result)
+		if err != nil {
+			t.Fatalf("Read returned an error: %v", err)
 		}
-
-		if err == nil {
-			t.Fatal("Read on empty queue did not return error")
+		if result != 0 {
+			t.Fatalf("Read should not mutate the queue - got: %d, want 0", result)
 		}
-
-		if err.Error() != "queue is empty" {
-			t.Fatalf("Read on empty queue did not return correct error message: %s", err.Error())
-		}
-	})
-
-	t.Run("populated queue", func(t *testing.T) {
-		t.Parallel()
-
-		queue := datastructures.Queue()
-
-		for i := 0; i < 10; i++ {
-			_ = queue.Enqueue(i)
-		}
-
-		for i := 0; i < 5; i++ {
-			result, err := queue.Read()
-			if err != nil {
-				t.Fatalf("Read returned an error: %v", err)
-			}
-			if result != 0 {
-				t.Fatalf("Read should not mutate the queue - got: %d, want 0", result)
-			}
-		}
-	})
+	}
 }
