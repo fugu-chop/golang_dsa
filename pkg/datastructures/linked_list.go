@@ -14,7 +14,7 @@ type linkedList struct {
 func LinkedList(val int) *linkedList {
 	return &linkedList{
 		node: &node{
-			value: &val,
+			value: val,
 		},
 	}
 }
@@ -34,7 +34,7 @@ func (l *linkedList) ReadAt(idx int) (int, error) {
 		n = n.next
 	}
 
-	return *n.value, nil
+	return n.value, nil
 }
 
 /*
@@ -49,7 +49,7 @@ func (l *linkedList) IndexOf(value int) (int, error) {
 	n := l.node
 
 	for n != nil {
-		if *n.value == value {
+		if n.value == value {
 			return idx, nil
 		}
 		n = n.next
@@ -68,7 +68,7 @@ the node at index `idx`.
 */
 func (l *linkedList) InsertAt(idx int, val int) error {
 	newNode := &node{
-		value: &val,
+		value: val,
 	}
 
 	if idx == 0 {
