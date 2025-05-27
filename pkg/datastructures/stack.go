@@ -12,9 +12,8 @@ type stack struct {
 
 // Stack returns a new stack with a pointer to a `node` with `num` as it's value.
 func Stack(num int) stack {
-	newNode := &node{value: num}
 	return stack{
-		currentNode: newNode,
+		currentNode: &node{value: num},
 	}
 }
 
@@ -35,11 +34,15 @@ func (s *stack) Push(num int) int {
 Pop returns the value of the `node` referenced by `currentNode`.
 It then removes that node from the sequence of `node`s.
 */
-func (s *stack) Pop() int {
+func (s *stack) Pop() (int, error) {
+	if s.currentNode == nil {
+		return -1, errors.New("no nodes exist in stack")
+	}
+
 	lastVal := s.currentNode.value
 	s.currentNode = s.currentNode.next
 
-	return lastVal
+	return lastVal, nil
 }
 
 // Read returns the value of the `node` that is referenced by `currentNode`

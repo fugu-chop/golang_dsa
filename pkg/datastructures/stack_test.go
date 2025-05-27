@@ -30,31 +30,53 @@ func TestStackPush(t *testing.T) {
 func TestStackPop(t *testing.T) {
 	t.Parallel()
 
-	stack := datastructures.Stack(0)
-	for i := 1; i <= 4; i++ {
-		_ = stack.Push(i)
-	}
+	t.Run("populated stack", func(t *testing.T) {
+		t.Parallel()
 
-	for i := 4; i > 0; i-- {
-		got := stack.Pop()
-		if got != i {
-			t.Fatalf(
-				"Pop on stack did not return result in order, expected: %d, got: %d", i, got,
-			)
+		stack := datastructures.Stack(0)
+		for i := 1; i <= 4; i++ {
+			_ = stack.Push(i)
 		}
 
-		/*
-		 Read should now have the updated value - terminate early since there will be
-		 one fewer Read available than Pop.
-		*/
-		read, err := stack.Read()
-		if err != nil {
-			t.Fatalf("should not have gottten error from read: got: %v", err)
+		for i := 4; i > 0; i-- {
+			got, err := stack.Pop()
+			if got != i {
+				t.Fatalf(
+					"Pop on stack did not return result in order, expected: %d, got: %d", i, got,
+				)
+			}
+			if err != nil {
+				t.Fatalf("should not have gottten error from read: got: %v", err)
+			}
+
+			/*
+			 Read should now have the updated value - terminate early since there will be
+			 one fewer Read available than Pop.
+			*/
+			read, err := stack.Read()
+			if err != nil {
+				t.Fatalf("should not have gottten error from read: got: %v", err)
+			}
+			if read != got-1 {
+				t.Fatalf("Pop on stack did not update last node - got: %d, want: %d", read, got-1)
+			}
 		}
-		if read != got-1 {
-			t.Fatalf("Pop on stack did not update last node - got: %d, want: %d", read, got-1)
+	})
+
+	t.Run("empty stack", func(t *testing.T) {
+		t.Parallel()
+
+		stack := datastructures.Stack(0)
+		_, _ = stack.Pop()
+
+		got, err := stack.Pop()
+		if got != -1 {
+			t.Fatalf("Pop should return -1 on empty stack, got: %d", got)
 		}
-	}
+		if err == nil {
+			t.Fatal("should have gottten error from Pop on empty stack")
+		}
+	})
 }
 
 func TestStackRead(t *testing.T) {
@@ -86,7 +108,7 @@ func TestStackRead(t *testing.T) {
 
 		stack := datastructures.Stack(0)
 
-		_ = stack.Pop()
+		_, _ = stack.Pop()
 		got, err := stack.Read()
 		// Read is non-destructive and idempotent
 		if err == nil {
