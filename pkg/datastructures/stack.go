@@ -4,49 +4,45 @@ import "errors"
 
 /*
 stack is an implementation of a stack data structure. It contains a pointer
-to a doubleLinkedNode.
+to a `node`.
 */
 type stack struct {
-	currentNode *doubleLinkedNode
+	currentNode *node
 }
 
-// Stack returns a new stack with a pointer to a `doubleLinkedNode` with `num` as it's value.
+// Stack returns a new stack with a pointer to a `node` with `num` as it's value.
 func Stack(num int) stack {
-	newNode := &doubleLinkedNode{value: num}
+	newNode := &node{value: num}
 	return stack{
 		currentNode: newNode,
 	}
 }
 
 /*
-Push appends a new `doubleLinkedNode` to the currentNode (as it's `next` value)
-and returns it's value.
+Push replaces the `currentNode` with a new `node` and returns it's value.
 */
 func (s *stack) Push(num int) int {
-	newNode := &doubleLinkedNode{
+	newNode := &node{
 		value: num,
-		prev:  s.currentNode,
+		next:  s.currentNode,
 	}
 
-	s.currentNode.next = newNode
 	s.currentNode = newNode
 	return num
 }
 
 /*
-Pop returns the value of the `doubleLinkedNode` referenced by `currentNode`.
-It then removes that node from the sequence of `doubleLinkedNode`s.
+Pop returns the value of the `node` referenced by `currentNode`.
+It then removes that node from the sequence of `node`s.
 */
 func (s *stack) Pop() int {
 	lastVal := s.currentNode.value
-
-	newLast := s.currentNode.prev
-	s.currentNode = newLast
+	s.currentNode = s.currentNode.next
 
 	return lastVal
 }
 
-// Read returns the value of the `doubleLinkedNode` that is referenced by `currentNode`
+// Read returns the value of the `node` that is referenced by `currentNode`
 func (s *stack) Read() (int, error) {
 	if s.currentNode == nil {
 		return -1, errors.New("no nodes exist in stack")

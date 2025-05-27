@@ -2,7 +2,7 @@ package datastructures
 
 /*
 The `node` type is intended to be used as the node component of the
-linkedList and queue types. Each node has two attributes:
+linkedList, stack and queue types. Each node has two attributes:
 
 1. An int; and
 
@@ -14,9 +14,10 @@ type node struct {
 }
 
 /*
-The `doubleLinkedNode` is intended to be used as the node component of
-the stack type. Each node has the same attributes as `node` but contains
-an additional pointer to the previous `doubleLinkedNode` in the chain.
+The `doubleLinkedNode` can be used as the node component of
+any of the linkedList, stack or queue. Each node has the same
+attributes as `node` but contains an additional pointer to
+the previous `doubleLinkedNode` in the chain.
 */
 type doubleLinkedNode struct {
 	value int
