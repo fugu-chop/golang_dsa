@@ -1,6 +1,8 @@
 package datastructures
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /*
 linkedList is an implementation of a single Linked List
@@ -124,4 +126,23 @@ func (l *linkedList) DeleteAt(idx int) error {
 	}
 
 	return nil
+}
+
+/*
+Reverse mutates the linkedList such that it's first `node` is now it's last
+and it's last `node` now first. Values for each `node` are preserved.
+*/
+func (l *linkedList) Reverse() {
+	var prev *node
+	current := l.node
+
+	for current != nil {
+		next := current.next
+
+		current.next = prev
+		prev = current
+		current = next
+	}
+
+	l.node = prev
 }

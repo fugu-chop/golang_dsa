@@ -233,4 +233,85 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 			t.Fatalf("ReadAt should be 1, got: %d", got)
 		}
 	})
+
+	t.Run("cannot delete to leave an empty linked list", func(t *testing.T) {
+		t.Parallel()
+
+		linkedList := datastructures.LinkedList(0)
+
+		for range 3 {
+			if err := linkedList.DeleteAt(0); err != nil {
+				t.Fatalf("error for DeleteAt should be nil, got: %v", err)
+			}
+		}
+	})
+}
+
+func TestReverse(t *testing.T) {
+	t.Parallel()
+
+	t.Run("reverses in place", func(t *testing.T) {
+		t.Parallel()
+
+		ll := datastructures.LinkedList(0)
+		_ = ll.InsertAt(1, 1)
+		_ = ll.InsertAt(2, 2)
+
+		ll.Reverse()
+
+		testData := map[string]struct {
+			idx    int
+			result int
+		}{
+			"first index": {
+				idx:    0,
+				result: 2,
+			},
+			"second index": {
+				idx:    1,
+				result: 1,
+			},
+			"third index": {
+				idx:    2,
+				result: 0,
+			},
+		}
+
+		for _, testCase := range testData {
+			got, err := ll.ReadAt(testCase.idx)
+			if got != testCase.result {
+				t.Fatalf("reversed list should have %d at index %d", got, testCase.idx)
+			}
+			if err != nil {
+				t.Fatalf("should not have error reading from reversed list, got: %v", err)
+			}
+		}
+	})
+
+	t.Run("handles one element linked list", func(t *testing.T) {
+		t.Parallel()
+
+		ll := datastructures.LinkedList(0)
+		if err := ll.DeleteAt(0); err != nil {
+			t.Fatal("can't delete at index 0")
+		}
+
+		got, err := ll.ReadAt(0)
+		if got != 0 {
+			t.Fatalf("reversed list should have %d at index 0", got)
+		}
+		if err != nil {
+			t.Fatalf("should not have error reading from reversed list, got: %v", err)
+		}
+
+		ll.Reverse()
+
+		got, err = ll.ReadAt(0)
+		if got != 0 {
+			t.Fatalf("reversed list should have %d at index 0", got)
+		}
+		if err != nil {
+			t.Fatalf("should not have error reading from reversed list, got: %v", err)
+		}
+	})
 }
