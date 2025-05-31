@@ -15,7 +15,8 @@ type node struct {
 
 /*
 The `doubleLinkedNode` can be used as the node component of
-any of the linkedList, stack or queue. Each node has the same
+any of the linkedList, stack or queue, but primarily intended
+for usage in a binarySearchTree. Each node has the same
 attributes as `node` but contains an additional pointer to
 the previous `doubleLinkedNode` in the chain.
 */
