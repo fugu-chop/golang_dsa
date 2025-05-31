@@ -36,3 +36,32 @@ func (b *binarySearchTree) Search(val int, node *doubleLinkedNode) *doubleLinked
 
 	return nil
 }
+
+/*
+Insert traverses the binary search tree and inserts a reference to
+a doubleLinkedNode to the appropriate node based on provided `val`.
+If a node with the value of `val` already exists, Insert is a no-op.
+*/
+func (b *binarySearchTree) Insert(val int, node *doubleLinkedNode) {
+	if node.value < val {
+		if node.next == nil {
+			node.next = &doubleLinkedNode{
+				value: val,
+			}
+			return
+		}
+		b.Insert(val, node.next)
+	}
+
+	// We require the additional conditional check to ensure
+	// that node.value == val is a no-op.
+	if node.value > val {
+		if node.prev == nil {
+			node.prev = &doubleLinkedNode{
+				value: val,
+			}
+			return
+		}
+		b.Insert(val, node.prev)
+	}
+}
