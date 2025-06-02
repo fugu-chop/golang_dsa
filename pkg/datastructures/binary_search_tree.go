@@ -68,7 +68,27 @@ func (b *binarySearchTree) Insert(val int, node *doubleLinkedNode) {
 
 /*
 Delete removes a node from the binary search tree. If the value does not
-exist within the binarySearchTree, Delete is a no-op.
+exist within the binarySearchTree, Delete is a no-op. Otherwise returns the
+root node (or the node that replaces the root node).
+
+Delete follows these rules:
+
+  - If the node being deleted has no children, simply delete it.
+
+  - If the node being deleted has one child, delete the node and plug the child
+    into the spot where the deleted node was.
+
+  - When deleting a node with two children, replace the deleted node with the successor node.
+    The successor node is the child node whose value is the least of all values that are greater
+    than the deleted node.
+
+  - To find the successor node: visit the right child of the deleted value, and
+    then keep on visiting the left child of each subsequent child until there
+    are no more left children. The bottom value is the successor node.
+
+  - If the successor node has a right child, after plugging the successor node into the spot of
+    the deleted node, take the former right child of the successor node and turn it into the
+    left child of the former parent of the successor node.
 */
 func (b *binarySearchTree) Delete(val int, node *doubleLinkedNode) *doubleLinkedNode {
 	// node with value of `val` does not exist
@@ -76,14 +96,19 @@ func (b *binarySearchTree) Delete(val int, node *doubleLinkedNode) *doubleLinked
 		return nil
 	}
 
+	// Where the value does not match, recursively search for the node for replacement
 	if val < node.value {
 		node.prev = b.Delete(val, node.prev)
+		return node
 	}
 
 	if val > node.value {
 		node.next = b.Delete(val, node.next)
+		return node
 	}
 
+	// Node value matches
+	// Replace the node with it's child
 	if node.prev == nil {
 		return node.next
 	}
@@ -92,17 +117,26 @@ func (b *binarySearchTree) Delete(val int, node *doubleLinkedNode) *doubleLinked
 		return node.prev
 	}
 
+	// Node has two children
 	node.next = b.lift(node.next, node)
 
 	return node
 }
 
+/*
+lift finds the node with the lowest value that is still larger than the value
+of `deletionNode` (the "successor" node) and replaces the value of `deletionNode`
+with that node's value. It also eliminates the original successor node by
+replacing the successor node with it's right child for the succesor node's parent.
+*/
 func (b *binarySearchTree) lift(node *doubleLinkedNode, deletionNode *doubleLinkedNode) *doubleLinkedNode {
+	// recursively search for the lowest value in the subtree
 	if node.prev != nil {
 		node.prev = b.lift(node.prev, deletionNode)
 		return node
 	}
 
+	// When no more left children, this is the successor node
 	deletionNode.value = node.value
 	return node.next
 }
