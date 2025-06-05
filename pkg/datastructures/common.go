@@ -21,7 +21,7 @@ attributes as `node` but contains an additional pointer to
 the previous `doubleLinkedNode` in the chain.
 */
 type doubleLinkedNode struct {
-	value int
+	Value int
 	next  *doubleLinkedNode
 	prev  *doubleLinkedNode
 }

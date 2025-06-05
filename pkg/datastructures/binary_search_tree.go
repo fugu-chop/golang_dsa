@@ -11,7 +11,7 @@ with the value of the currentNode set to `val`.
 func BinarySearchTree(val int) *binarySearchTree {
 	return &binarySearchTree{
 		CurrentNode: &doubleLinkedNode{
-			value: val,
+			Value: val,
 		},
 	}
 }
@@ -26,11 +26,11 @@ func (b *binarySearchTree) Search(val int, node *doubleLinkedNode) *doubleLinked
 		return nil
 	}
 
-	if val < node.value {
+	if val < node.Value {
 		return b.Search(val, node.prev)
 	}
 
-	if val > node.value {
+	if val > node.Value {
 		return b.Search(val, node.next)
 	}
 
@@ -43,10 +43,10 @@ a doubleLinkedNode to the appropriate node based on provided `val`.
 If a node with the value of `val` already exists, Insert is a no-op.
 */
 func (b *binarySearchTree) Insert(val int, node *doubleLinkedNode) {
-	if val > node.value {
+	if val > node.Value {
 		if node.next == nil {
 			node.next = &doubleLinkedNode{
-				value: val,
+				Value: val,
 			}
 			return
 		}
@@ -54,11 +54,11 @@ func (b *binarySearchTree) Insert(val int, node *doubleLinkedNode) {
 	}
 
 	// We require the additional conditional check to ensure
-	// that node.value == val is a no-op.
-	if val < node.value {
+	// that node.Value == val is a no-op.
+	if val < node.Value {
 		if node.prev == nil {
 			node.prev = &doubleLinkedNode{
-				value: val,
+				Value: val,
 			}
 			return
 		}
@@ -97,12 +97,12 @@ func (b *binarySearchTree) Delete(val int, node *doubleLinkedNode) *doubleLinked
 	}
 
 	// Where the value does not match, recursively search for the node for replacement
-	if val < node.value {
+	if val < node.Value {
 		node.prev = b.Delete(val, node.prev)
 		return node
 	}
 
-	if val > node.value {
+	if val > node.Value {
 		node.next = b.Delete(val, node.next)
 		return node
 	}
@@ -137,6 +137,25 @@ func (b *binarySearchTree) lift(node *doubleLinkedNode, deletionNode *doubleLink
 	}
 
 	// When no more left children, this is the successor node
-	deletionNode.value = node.value
+	deletionNode.Value = node.Value
 	return node.next
+}
+
+/*
+Traverse collates all the nodes of the tree, starting from the root node
+then each subsequent left child recursively until there are no more left child nodes,
+then returning to the previous node and collecting each right child recursively.
+This is also known as 'pre-order' traversal.
+*/
+
+func (b *binarySearchTree) Traverse(node *doubleLinkedNode, results []int) []int {
+	if node == nil {
+		return results
+	}
+
+	results = append(results, node.Value)
+	results = b.Traverse(node.prev, results)
+	results = b.Traverse(node.next, results)
+
+	return results
 }
