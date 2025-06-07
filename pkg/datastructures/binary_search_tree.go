@@ -88,7 +88,7 @@ Delete follows these rules:
 
   - If the successor node has a right child, after plugging the successor node into the spot of
     the deleted node, take the former right child of the successor node and turn it into the
-    left child of the former parent of the successor node.
+    left child of the new parent of the successor node.
 */
 func (b *binarySearchTree) Delete(val int, node *doubleLinkedNode) *doubleLinkedNode {
 	// node with value of `val` does not exist
@@ -126,8 +126,13 @@ func (b *binarySearchTree) Delete(val int, node *doubleLinkedNode) *doubleLinked
 /*
 lift finds the node with the lowest value that is still larger than the value
 of `deletionNode` (the "successor" node) and replaces the value of `deletionNode`
-with that node's value. It also eliminates the original successor node by
+with that node's value.
+
+It also eliminates the original successor node by
 replacing the successor node with it's right child for the succesor node's parent.
+
+It returns the original node that was passed to it, or nil, if the original node
+passed to it had no left children (i.e. it becomes the successor node).
 */
 func (b *binarySearchTree) lift(node *doubleLinkedNode, deletionNode *doubleLinkedNode) *doubleLinkedNode {
 	// recursively search for the lowest value in the subtree
