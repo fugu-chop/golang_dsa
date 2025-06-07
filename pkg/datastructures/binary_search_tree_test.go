@@ -132,7 +132,7 @@ func TestBinarySearchTree_Delete(t *testing.T) {
 		t.Parallel()
 
 		rootNodeVal := 4
-		vals := []int{1, 6, 5, 8, 2, 3}
+		vals := []int{2, 6, 5, 8, 1, 3}
 		b := datastructures.BinarySearchTree(rootNodeVal)
 		for _, val := range vals {
 			b.Insert(val, b.CurrentNode)
@@ -146,7 +146,7 @@ func TestBinarySearchTree_Delete(t *testing.T) {
 			t.Fatalf("currentNode value should have been replaced with %d, got: %d", rootNodeVal, b.CurrentNode.Value)
 		}
 		traversal := b.Traverse(b.CurrentNode, []int{})
-		expectedTraversal := []int{5, 1, 2, 3, 6, 8}
+		expectedTraversal := []int{5, 2, 1, 3, 6, 8}
 		if !reflect.DeepEqual(expectedTraversal, traversal) {
 			t.Fatalf("deletion of node should prune tree, want: %v, got: %v", expectedTraversal, traversal)
 		}
