@@ -128,8 +128,8 @@ lift finds the node with the lowest value that is still larger than the value
 of `deletionNode` (the "successor" node) and replaces the value of `deletionNode`
 with that node's value.
 
-It also eliminates the original successor node by
-replacing the successor node with it's right child for the succesor node's parent.
+It also eliminates the original successor node by replacing the successor node
+with it's right child.
 
 It returns the original node that was passed to it, or nil, if the original node
 passed to it had no left children (i.e. it becomes the successor node).
@@ -137,11 +137,14 @@ passed to it had no left children (i.e. it becomes the successor node).
 func (b *binarySearchTree) lift(node *doubleLinkedNode, deletionNode *doubleLinkedNode) *doubleLinkedNode {
 	// recursively search for the lowest value in the subtree
 	if node.prev != nil {
+		// eventually replace the "original" successor
+		// node with it's original right child
 		node.prev = b.lift(node.prev, deletionNode)
 		return node
 	}
 
 	// When no more left children, this is the successor node
+	// We only replace the value, not the reference
 	deletionNode.Value = node.Value
 	return node.next
 }
