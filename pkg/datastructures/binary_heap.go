@@ -19,8 +19,7 @@ func (b *binaryHeap) Insert(val int) {
 	newNodeIdx := len(b.heap) - 1
 
 	// OOB guard as root node will not have a parent
-	for newNodeIdx > 0 &&
-		b.heap[newNodeIdx] < b.heap[parentIdx(newNodeIdx)] {
+	for newNodeIdx > 0 && b.heap[newNodeIdx] > b.heap[parentIdx(newNodeIdx)] {
 		b.heap[newNodeIdx], b.heap[parentIdx(newNodeIdx)] =
 			b.heap[parentIdx(newNodeIdx)], b.heap[newNodeIdx]
 		newNodeIdx = parentIdx(newNodeIdx)
@@ -38,6 +37,10 @@ func (b *binaryHeap) Delete() {
 			b.heap[largerChildIdx], b.heap[trickleNodeIdx]
 		trickleNodeIdx = largerChildIdx
 	}
+}
+
+func (b *binaryHeap) Show() []int {
+	return b.heap
 }
 
 func (b *binaryHeap) lastNode() int {
