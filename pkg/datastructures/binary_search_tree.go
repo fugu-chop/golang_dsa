@@ -1,9 +1,5 @@
 package datastructures
 
-type binarySearchTree struct {
-	CurrentNode *doubleLinkedNode
-}
-
 /*
 BinarySearchTree returns a pointer to a binarySearchTree type
 with the value of the currentNode set to `val`.

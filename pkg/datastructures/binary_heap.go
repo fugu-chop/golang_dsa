@@ -1,9 +1,9 @@
 package datastructures
 
-type binaryHeap struct {
-	heap []int
-}
-
+/*
+BinaryHeap returns a pointer to a binaryHeap type
+with the value of the currentNode set to `val`.
+*/
 func BinaryHeap(val int) *binaryHeap {
 	return &binaryHeap{
 		heap: []int{val},
