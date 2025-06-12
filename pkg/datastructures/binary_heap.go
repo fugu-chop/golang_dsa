@@ -53,7 +53,7 @@ func (b *binaryHeap) hasGreaterChild(idx int) bool {
 
 func (b *binaryHeap) largerChildNodeIdx(idx int) int {
 	// No right child
-	if len(b.heap) < rightChildIdx(idx) {
+	if rightChildIdx(idx) >= len(b.heap) {
 		return leftChildIdx(idx)
 	}
 
