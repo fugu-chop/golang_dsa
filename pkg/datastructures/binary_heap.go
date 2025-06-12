@@ -2,7 +2,7 @@ package datastructures
 
 /*
 BinaryHeap returns a pointer to a binaryHeap type
-with the value of the currentNode set to `val`.
+with the `heap` populated with a single value, `val`.
 */
 func BinaryHeap(val int) *binaryHeap {
 	return &binaryHeap{
@@ -10,10 +10,18 @@ func BinaryHeap(val int) *binaryHeap {
 	}
 }
 
+/*
+FirstNode returns the first element in the heap (i.e. the root node).
+*/
 func (b *binaryHeap) FirstNode() int {
 	return b.heap[0]
 }
 
+/*
+Insert adds a node to the heap and trickles it upwards based on the
+value of parent nodes - i.e. Insert works on a max heap basis where
+the largest value in the entire heap should be the root node.
+*/
 func (b *binaryHeap) Insert(val int) {
 	b.heap = append(b.heap, val)
 	newNodeIdx := len(b.heap) - 1
@@ -26,6 +34,12 @@ func (b *binaryHeap) Insert(val int) {
 	}
 }
 
+/*
+Delete removes the root node and replaces it with the next highest
+value within the heap (i.e. a max heap). It does this by replacing the
+root node with the lastNode and then trickling it downward based on the
+value of it's child nodes.
+*/
 func (b *binaryHeap) Delete() {
 	b.heap[0] = b.lastNode()
 	b.heap = b.heap[:len(b.heap)-1]
@@ -39,14 +53,25 @@ func (b *binaryHeap) Delete() {
 	}
 }
 
+/*
+Show returns the entire heap. It is used primarily for debugging and testing purposes.
+*/
 func (b *binaryHeap) Show() []int {
 	return b.heap
 }
 
+/*
+lastNode returns the last element in the heap (i.e. the last element in the slice).
+*/
 func (b *binaryHeap) lastNode() int {
-	return b.heap[len(b.heap)]
+	return b.heap[len(b.heap)-1]
 }
 
+/*
+hasGreaterChild determines whether or not a given node has a child node with a value
+greater than it's own value. It has a built in out of bounds guard to avoid panics
+where no child exists for a given node.
+*/
 func (b *binaryHeap) hasGreaterChild(idx int) bool {
 	return leftChildIdx(idx) < len(b.heap) &&
 		b.heap[leftChildIdx(idx)] > b.heap[idx] ||
@@ -54,12 +79,18 @@ func (b *binaryHeap) hasGreaterChild(idx int) bool {
 			b.heap[rightChildIdx(idx)] > b.heap[idx]
 }
 
+/*
+largerChildNodeIdx returns the index of a node where that node's value is
+larger than it's parent.
+*/
 func (b *binaryHeap) largerChildNodeIdx(idx int) int {
 	// No right child
 	if rightChildIdx(idx) >= len(b.heap) {
 		return leftChildIdx(idx)
 	}
 
+	// existence of a right child implies a left child due to
+	// completeness condition of binary heap
 	if b.heap[rightChildIdx(idx)] > b.heap[leftChildIdx(idx)] {
 		return rightChildIdx(idx)
 	}
@@ -67,15 +98,32 @@ func (b *binaryHeap) largerChildNodeIdx(idx int) int {
 	return leftChildIdx(idx)
 }
 
-// Relies on integer division (i.e. decimal places are ignored).
+/*
+parentIdx returns the index of a particular node's parent.
+It relies on integer division (i.e. decimal places are ignored)
+and operates on the assumption of a maximum of two child nodes per node
+(i.e. a 2^n of nodes, where n == number of levels).
+*/
 func parentIdx(idx int) int {
 	return (idx - 1) / 2
 }
 
+/*
+leftChildIdx returns the index of a particular node's 'left child'.
+It relies on integer division (i.e. decimal places are ignored)
+and operates on the assumption of a maximum of two child nodes per node
+(i.e. a 2^n of nodes, where n == number of levels).
+*/
 func leftChildIdx(idx int) int {
 	return 2*idx + 1
 }
 
+/*
+rightChildIdx returns the index of a particular node's 'right child'.
+It relies on integer division (i.e. decimal places are ignored)
+and operates on the assumption of a maximum of two child nodes per node
+(i.e. a 2^n of nodes, where n == number of levels).
+*/
 func rightChildIdx(idx int) int {
 	return 2*idx + 2
 }
