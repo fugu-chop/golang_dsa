@@ -56,3 +56,53 @@ func TestBinaryHeap_Insert(t *testing.T) {
 
 	})
 }
+
+func TestBinaryHeap_Delete(t *testing.T) {
+	t.Parallel()
+
+	t.Run("deletion reorders tree", func(t *testing.T) {
+		t.Parallel()
+
+		heap := datastructures.BinaryHeap(5)
+		for i := 1; i < 5; i++ {
+			heap.Insert(i)
+		}
+
+		expectedHeap := []int{5, 4, 2, 1, 3}
+
+		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		}
+
+		heap.Delete()
+
+		expectedHeap = []int{4, 3, 2, 1}
+
+		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		}
+	})
+
+	t.Run("deletion reorders on opposite side", func(t *testing.T) {
+		t.Parallel()
+
+		heap := datastructures.BinaryHeap(7)
+		for i := 1; i < 7; i++ {
+			heap.Insert(i)
+		}
+
+		expectedHeap := []int{7, 4, 6, 1, 3, 2, 5}
+
+		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		}
+
+		heap.Delete()
+
+		expectedHeap = []int{6, 4, 5, 1, 3, 2}
+
+		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		}
+	})
+}
