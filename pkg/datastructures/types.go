@@ -68,3 +68,20 @@ to a `node`.
 type stack struct {
 	currentNode *node
 }
+
+/*
+Trie is an implementation of a trie (retrieval) data structure.
+It holds a `root`, which is a pointer to a trieNode.
+*/
+type Trie struct {
+	root *trieNode
+}
+
+/*
+a trieNode is a node used within the implementation of a Trie.
+It contains a map whose keys are letters and values are pointers to
+other trieNodes.
+*/
+type trieNode struct {
+	Children map[string]*trieNode
+}
