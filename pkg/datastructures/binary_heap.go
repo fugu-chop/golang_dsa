@@ -41,6 +41,10 @@ root node with the lastNode and then trickling it downward based on the
 value of it's child nodes.
 */
 func (b *binaryHeap) Delete() {
+	if len(b.heap) == 0 {
+		return
+	}
+
 	b.heap[0] = b.lastNode()
 	b.heap = b.heap[:len(b.heap)-1]
 	trickleNodeIdx := 0

@@ -105,4 +105,25 @@ func TestBinaryHeap_Delete(t *testing.T) {
 			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
 		}
 	})
+
+	t.Run("handles no nodes", func(t *testing.T) {
+		t.Parallel()
+
+		heap := datastructures.BinaryHeap(7)
+		heap.Delete()
+
+		expectedHeap := []int{}
+
+		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		}
+
+		heap.Delete()
+
+		expectedHeap = []int{}
+
+		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		}
+	})
 }
