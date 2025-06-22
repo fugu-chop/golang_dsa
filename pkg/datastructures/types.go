@@ -70,10 +70,10 @@ type stack struct {
 }
 
 /*
-Trie is an implementation of a trie (retrieval) data structure.
+trie is an implementation of a trie (retrieval) data structure.
 It holds a `root`, which is a pointer to a trieNode.
 */
-type Trie struct {
+type trie struct {
 	root *trieNode
 }
 
@@ -83,5 +83,15 @@ It contains a map whose keys are letters and values are pointers to
 other trieNodes.
 */
 type trieNode struct {
-	Children map[string]*trieNode
+	children map[string]*trieNode
+}
+
+func (t *trieNode) Get(letter string) *trieNode {
+	return t.children[letter]
+}
+
+func (t *trieNode) Set(letter string) {
+	t.children[letter] = &trieNode{
+		children: make(map[string]*trieNode),
+	}
 }
