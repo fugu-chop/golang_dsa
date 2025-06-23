@@ -1,6 +1,11 @@
 package datastructures
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
+
+const terminateChar = "*"
 
 /*
 Trie returns a pointer to a trie type. The `root` node is populated
@@ -39,5 +44,40 @@ func (t *trie) Insert(word string) {
 		currentNode = currentNode.Get(letter)
 	}
 
-	currentNode.Set("*")
+	currentNode.Set(terminateChar)
+}
+
+func (t *trie) Autocomplete(prefix string) []string {
+	currentNode := t.Search(prefix)
+	if currentNode == nil {
+		return nil
+	}
+
+	return t.list(currentNode, prefix, []string{})
+}
+
+func (t *trie) list(node *trieNode, word string, words []string) []string {
+	currentNode := node
+
+	for letter, child := range currentNode.children {
+		if letter == terminateChar {
+			words = append(words, word)
+			continue
+		}
+
+		t.list(child, word+letter, words)
+	}
+
+	return words
+}
+
+func (t *trie) Traverse(node *trieNode) {
+	if node.children == nil {
+		return
+	}
+
+	for letter, child := range node.children {
+		fmt.Println(letter)
+		t.Traverse(child)
+	}
 }
