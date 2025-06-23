@@ -19,6 +19,14 @@ func Trie(letter string) *trie {
 	}
 }
 
+/*
+Search attempts to find the given `word` among all the nodes within the trie.
+
+If the word can be found, it returns a pointer to the node that contains the
+terminating character, `*`.
+
+This is for the purposes of implementing the Autocomplete function.
+*/
 func (t *trie) Search(word string) *trieNode {
 	currentNode := t.root
 	strSlice := strings.Split(word, "")
@@ -31,6 +39,12 @@ func (t *trie) Search(word string) *trieNode {
 	return currentNode
 }
 
+/*
+Insert breaks a `word` up separate letters, traversing the trie and inserting
+child nodes where a given letter in `word` does not already exist in the trie.
+
+Each word is terminated by the `*` character.
+*/
 func (t *trie) Insert(word string) {
 	currentNode := t.root
 	strSlice := strings.Split(word, "")
@@ -47,6 +61,10 @@ func (t *trie) Insert(word string) {
 	currentNode.Set(terminateChar)
 }
 
+/*
+Autocomplete takes a `prefix` string and lists words that begin with it.
+It returns `nil` if no words can be found.
+*/
 func (t *trie) Autocomplete(prefix string) []string {
 	currentNode := t.Search(prefix)
 	if currentNode == nil {
@@ -56,6 +74,10 @@ func (t *trie) Autocomplete(prefix string) []string {
 	return t.list(currentNode, prefix, []string{})
 }
 
+/*
+list traverses the tree and attempts to find words that can be terminated with
+the given `word` argument.
+*/
 func (t *trie) list(node *trieNode, word string, words []string) []string {
 	currentNode := node
 
@@ -71,6 +93,7 @@ func (t *trie) list(node *trieNode, word string, words []string) []string {
 	return words
 }
 
+// Traverse prints all the nodes within a trie.
 func (t *trie) Traverse(node *trieNode) {
 	if node.children == nil {
 		return
