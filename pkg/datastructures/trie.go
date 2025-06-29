@@ -1,7 +1,6 @@
 package datastructures
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -9,14 +8,21 @@ const terminateChar = "*"
 
 /*
 Trie returns a pointer to a trie type. The `root` node is populated
-with a pointer to a trieNode type with the key of `letter`.
+with a pointer to a trieNode type.
 */
-func Trie(letter string) *trie {
+func Trie() *trie {
 	return &trie{
 		root: &trieNode{
 			children: make(map[string]*trieNode),
 		},
 	}
+}
+
+/*
+Root returns a pointer to the root node of the trie.
+*/
+func (t *trie) Root() *trieNode {
+	return t.root
 }
 
 /*
@@ -90,17 +96,20 @@ func (t *trie) list(node *trieNode, word string, words []string) []string {
 		t.list(child, word+letter, words)
 	}
 
-	return words
+	return append(words, word)
 }
 
-// Traverse prints all the nodes within a trie.
-func (t *trie) Traverse(node *trieNode) {
-	if node.children == nil {
-		return
+/*
+Traverse collects all the letters of the child nodes within a trie
+and returns a slice of letters.
+*/
+func (t *trie) Traverse(node *trieNode, letters []string) []string {
+	for letter, child := range node.children {
+		letters = t.Traverse(
+			child,
+			append(letters, letter),
+		)
 	}
 
-	for letter, child := range node.children {
-		fmt.Println(letter)
-		t.Traverse(child)
-	}
+	return letters
 }
