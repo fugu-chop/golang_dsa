@@ -88,6 +88,9 @@ largerChildNodeIdx returns the index of a node where that node's value is
 larger than it's parent.
 */
 func (b *binaryHeap) largerChildNodeIdx(idx int) int {
+	// In theory this should be an out of bounds check
+	// but I cannot get a test case to simulate this
+
 	// No right child
 	if rightChildIdx(idx) >= len(b.heap) {
 		return leftChildIdx(idx)

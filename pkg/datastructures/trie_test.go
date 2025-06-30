@@ -114,11 +114,17 @@ func TestTrie_Autocomplete(t *testing.T) {
 		trie.Insert("animus")
 		trie.Insert("animosity")
 
-		expected := []string{"animal", "animus", "animosity"}
 		letters := trie.Autocomplete("ani")
 
-		if !reflect.DeepEqual(expected, letters) {
-			t.Fatalf("expected autocomplete to contain: %v, got: %v", expected, letters)
+		lettersMap := make(map[string]int)
+		for _, entries := range letters {
+			lettersMap[entries]++
+		}
+
+		expected := map[string]int{"animal": 1, "animus": 1, "animosity": 1}
+
+		if !reflect.DeepEqual(expected, lettersMap) {
+			t.Fatalf("expected autocomplete to contain: %v, got: %v", expected, lettersMap)
 		}
 	})
 
