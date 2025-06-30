@@ -2,7 +2,6 @@ package datastructures_test
 
 import (
 	"reflect"
-	"strings"
 	"testing"
 
 	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
@@ -105,12 +104,14 @@ func TestTrie_Autocomplete(t *testing.T) {
 
 		trie := datastructures.Trie()
 		trie.Insert("animal")
+		trie.Insert("animus")
+		trie.Insert("animosity")
 
-		prefix := "ani"
-		letters := trie.Autocomplete(prefix)
+		expected := []string{"animal", "animus", "animosity"}
+		letters := trie.Autocomplete("ani")
 
-		if strings.Join(letters, "") != prefix {
-			t.Fatalf("expected autocomplete to contain: %s, got: %s", prefix, strings.Join(letters, ""))
+		if !reflect.DeepEqual(expected, letters) {
+			t.Fatalf("expected autocomplete to contain: %v, got: %v", expected, letters)
 		}
 	})
 

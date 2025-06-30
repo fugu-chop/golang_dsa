@@ -93,10 +93,10 @@ func (t *trie) list(node *trieNode, word string, words []string) []string {
 			continue
 		}
 
-		t.list(child, word+letter, words)
+		words = t.list(child, word+letter, words)
 	}
 
-	return append(words, word)
+	return words
 }
 
 /*
