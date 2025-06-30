@@ -37,10 +37,10 @@ func (t *trie) Search(word string) *trieNode {
 	currentNode := t.root
 	strSlice := strings.Split(word, "")
 	for _, letter := range strSlice {
-		if currentNode.Get(letter) == nil {
+		if currentNode.get(letter) == nil {
 			return nil
 		}
-		currentNode = currentNode.Get(letter)
+		currentNode = currentNode.get(letter)
 	}
 	return currentNode
 }
@@ -55,16 +55,16 @@ func (t *trie) Insert(word string) {
 	currentNode := t.root
 	strSlice := strings.Split(word, "")
 	for _, letter := range strSlice {
-		if currentNode.Get(letter) != nil {
-			currentNode = currentNode.Get(letter)
+		if currentNode.get(letter) != nil {
+			currentNode = currentNode.get(letter)
 			continue
 		}
 
-		currentNode.Set(letter)
-		currentNode = currentNode.Get(letter)
+		currentNode.set(letter)
+		currentNode = currentNode.get(letter)
 	}
 
-	currentNode.Set(terminateChar)
+	currentNode.set(terminateChar)
 }
 
 /*

@@ -89,7 +89,7 @@ type trieNode struct {
 /*
 Get attempts to fetch a pointer to a child node that has a child with a value of `letter`.
 */
-func (t *trieNode) Get(letter string) *trieNode {
+func (t *trieNode) get(letter string) *trieNode {
 	return t.children[letter]
 }
 
@@ -97,7 +97,7 @@ func (t *trieNode) Get(letter string) *trieNode {
 Set creates a child node for the current node that has a `letter` value.
 If a child node already exists with a `letter` value, `Set` is a no-op.
 */
-func (t *trieNode) Set(letter string) {
+func (t *trieNode) set(letter string) {
 	// avoid clobbering existing relationships
 	if _, ok := t.children[letter]; ok {
 		return

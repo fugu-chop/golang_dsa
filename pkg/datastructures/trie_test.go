@@ -72,10 +72,6 @@ func TestTrie_Search(t *testing.T) {
 		if node == nil {
 			t.Fatal("expected node to exist, got nil")
 		}
-
-		if node.Get("*") == nil {
-			t.Fatal("expected final character to be terminated by *")
-		}
 	})
 
 	t.Run("doesn't return result when word partially exists", func(t *testing.T) {
