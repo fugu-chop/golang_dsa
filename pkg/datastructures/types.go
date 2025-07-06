@@ -1,5 +1,7 @@
 package datastructures
 
+import "slices"
+
 /*
 The `node` type is intended to be used as the node component of the
 linkedList, stack and queue types. Each node has two attributes:
@@ -105,5 +107,30 @@ func (t *trieNode) set(letter string) {
 
 	t.children[letter] = &trieNode{
 		children: make(map[string]*trieNode),
+	}
+}
+
+type vertex struct {
+	value            string
+	adjacentVertexes []*vertex
+}
+
+func (v *vertex) AddDirectedVertex(newVertex *vertex) {
+	v.adjacentVertexes = append(v.adjacentVertexes, newVertex)
+}
+
+func (v *vertex) AddUndirectedVertex(newVertex *vertex) {
+	// Avoid infinite loop
+	if slices.Contains(v.adjacentVertexes, newVertex) {
+		return
+	}
+	v.adjacentVertexes = append(v.adjacentVertexes, newVertex)
+	newVertex.AddUndirectedVertex(v)
+}
+
+func NewVertex(val string) *vertex {
+	return &vertex{
+		value:            val,
+		adjacentVertexes: []*vertex{},
 	}
 }
