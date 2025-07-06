@@ -1,6 +1,16 @@
 package datastructures
 
 /*
+binaryHeap is an implementation of a Binary Heap data structure.
+It contains a slice of integers instead of references to nodes to
+allow easier access to the last 'node' in the heap.
+This makes deletion of nodes much easier.
+*/
+type binaryHeap struct {
+	heap []int
+}
+
+/*
 BinaryHeap returns a pointer to a binaryHeap type
 with the `heap` populated with a single value, `val`.
 */

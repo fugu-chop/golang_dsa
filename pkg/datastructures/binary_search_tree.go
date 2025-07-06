@@ -1,6 +1,27 @@
 package datastructures
 
 /*
+The `doubleLinkedNode` can be used as the node component of
+any of the linkedList, stack or queue, but primarily intended
+for usage in a binarySearchTree. Each node has the same
+attributes as `node` but contains an additional pointer to
+the previous `doubleLinkedNode` in the chain.
+*/
+type doubleLinkedNode struct {
+	Value int
+	next  *doubleLinkedNode
+	prev  *doubleLinkedNode
+}
+
+/*
+binarySearchTree is an implementation of a Binary Search Tree data structure.
+It contains a pointer to a doubleLinkedNode type.
+*/
+type binarySearchTree struct {
+	CurrentNode *doubleLinkedNode
+}
+
+/*
 BinarySearchTree returns a pointer to a binarySearchTree type
 with the value of the currentNode set to `val`.
 */

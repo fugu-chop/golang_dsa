@@ -2,6 +2,14 @@ package datastructures
 
 import "errors"
 
+/*
+stack is an implementation of a stack data structure. It contains a pointer
+to a `node`.
+*/
+type stack struct {
+	currentNode *node
+}
+
 // Stack returns a new stack with a pointer to a `node` with `num` as it's value.
 func Stack(num int) stack {
 	return stack{

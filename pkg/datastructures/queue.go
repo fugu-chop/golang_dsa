@@ -2,6 +2,15 @@ package datastructures
 
 import "errors"
 
+/*
+queue is an implementation of a queue data structure. It contains a pointer
+to the first `node` type and the last `node` type it encompasses.
+*/
+type queue struct {
+	firstNode *node
+	lastNode  *node
+}
+
 // Queue returns a pointer to a new queue with a `node` of `val` value.
 func Queue(val int) queue {
 	newNode := &node{

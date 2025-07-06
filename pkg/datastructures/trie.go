@@ -7,6 +7,45 @@ import (
 const terminateChar = "*"
 
 /*
+trie is an implementation of a trie (retrieval) data structure.
+It holds a `root`, which is a pointer to a trieNode.
+*/
+type trie struct {
+	root *trieNode
+}
+
+/*
+a trieNode is a node used within the implementation of a Trie.
+It contains a map whose keys are letters and values are pointers to
+other trieNodes.
+*/
+type trieNode struct {
+	children map[string]*trieNode
+}
+
+/*
+Get attempts to fetch a pointer to a child node that has a child with a value of `letter`.
+*/
+func (t *trieNode) get(letter string) *trieNode {
+	return t.children[letter]
+}
+
+/*
+Set creates a child node for the current node that has a `letter` value.
+If a child node already exists with a `letter` value, `Set` is a no-op.
+*/
+func (t *trieNode) set(letter string) {
+	// avoid clobbering existing relationships
+	if _, ok := t.children[letter]; ok {
+		return
+	}
+
+	t.children[letter] = &trieNode{
+		children: make(map[string]*trieNode),
+	}
+}
+
+/*
 Trie returns a pointer to a trie type. The `root` node is populated
 with a pointer to a trieNode type.
 */
