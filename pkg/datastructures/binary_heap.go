@@ -49,12 +49,15 @@ Delete removes the root node and replaces it with the next highest
 value within the heap (i.e. a max heap). It does this by replacing the
 root node with the lastNode and then trickling it downward based on the
 value of it's child nodes.
+
+It returns a pointer to the value of the original root node (before deletion).
 */
-func (b *binaryHeap) Delete() {
+func (b *binaryHeap) Delete() *int {
 	if len(b.heap) == 0 {
-		return
+		return nil
 	}
 
+	rootVal := b.FirstNode()
 	b.heap[0] = b.lastNode()
 	b.heap = b.heap[:len(b.heap)-1]
 	trickleNodeIdx := 0
@@ -65,6 +68,8 @@ func (b *binaryHeap) Delete() {
 			b.heap[largerChildIdx], b.heap[trickleNodeIdx]
 		trickleNodeIdx = largerChildIdx
 	}
+
+	return &rootVal
 }
 
 /*

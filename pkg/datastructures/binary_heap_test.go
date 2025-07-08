@@ -63,7 +63,9 @@ func TestBinaryHeap_Delete(t *testing.T) {
 	t.Run("deletion reorders tree", func(t *testing.T) {
 		t.Parallel()
 
-		heap := datastructures.BinaryHeap(5)
+		rootVal := 5
+
+		heap := datastructures.BinaryHeap(rootVal)
 		for i := 1; i < 5; i++ {
 			heap.Insert(i)
 		}
@@ -74,7 +76,10 @@ func TestBinaryHeap_Delete(t *testing.T) {
 			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
 		}
 
-		heap.Delete()
+		got := heap.Delete()
+		if *got != rootVal {
+			t.Fatalf("expected delete to return root node value of %d, got: %d", rootVal, got)
+		}
 
 		expectedHeap = []int{4, 3, 2, 1}
 
@@ -86,7 +91,9 @@ func TestBinaryHeap_Delete(t *testing.T) {
 	t.Run("deletion reorders on opposite side", func(t *testing.T) {
 		t.Parallel()
 
-		heap := datastructures.BinaryHeap(7)
+		rootVal := 7
+
+		heap := datastructures.BinaryHeap(rootVal)
 		for i := 1; i < 7; i++ {
 			heap.Insert(i)
 		}
@@ -97,7 +104,10 @@ func TestBinaryHeap_Delete(t *testing.T) {
 			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
 		}
 
-		heap.Delete()
+		got := heap.Delete()
+		if *got != rootVal {
+			t.Fatalf("expected delete to return root node value of %d, got: %d", rootVal, got)
+		}
 
 		expectedHeap = []int{6, 4, 5, 1, 3, 2}
 
@@ -109,8 +119,13 @@ func TestBinaryHeap_Delete(t *testing.T) {
 	t.Run("handles no nodes", func(t *testing.T) {
 		t.Parallel()
 
-		heap := datastructures.BinaryHeap(7)
-		heap.Delete()
+		rootVal := 7
+		heap := datastructures.BinaryHeap(rootVal)
+
+		got := heap.Delete()
+		if *got != rootVal {
+			t.Fatalf("expected delete to return root node value of %d, got: %d", rootVal, got)
+		}
 
 		expectedHeap := []int{}
 
@@ -118,7 +133,10 @@ func TestBinaryHeap_Delete(t *testing.T) {
 			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
 		}
 
-		heap.Delete()
+		got = heap.Delete()
+		if got != nil {
+			t.Fatalf("expected delete to return root node value of nil, got: %d", *got)
+		}
 
 		expectedHeap = []int{}
 
