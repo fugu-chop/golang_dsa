@@ -1,6 +1,8 @@
 package datastructures
 
-import "slices"
+import (
+	"slices"
+)
 
 /*
 `graph` is a type used to contain all `vertex` types within a graph.
@@ -18,6 +20,14 @@ func Graph() *graph {
 	return &graph{
 		vertices: make(map[string]*vertex),
 	}
+}
+
+/*
+ListVertices returns a map of all the vertices contained within
+a `graph` type, regardless of whether they are connected or not.
+*/
+func (g *graph) ListVertices() map[string]*vertex {
+	return g.vertices
 }
 
 /*
@@ -71,4 +81,44 @@ func (v *vertex) AddUndirectedVertex(newVertex *vertex) {
 	}
 	v.adjacentVertices = append(v.adjacentVertices, newVertex)
 	newVertex.AddUndirectedVertex(v)
+}
+
+// Value returns the underlying string value of a vertex
+func (v *vertex) Value() string {
+	return v.value
+}
+
+/*
+DFS performs depth-first search on a `searchVertex` against a provided `searchVal` string.
+It returns a pointer to a `vertex` type if:
+
+  - A vertex exists with a value of `searchVal`; and
+
+  - That vertex has an edge to the `searchVertex`
+
+Otherwise it returns nil.
+*/
+func DFS(searchVertex *vertex, searchVal string, visitedVertices map[string]bool) *vertex {
+	visitedVertices[searchVertex.value] = true
+
+	if searchVertex.value == searchVal {
+		return searchVertex
+	}
+
+	for _, vertex := range searchVertex.adjacentVertices {
+		if visitedVertices[vertex.value] {
+			continue
+		}
+
+		if vertex.value == searchVal {
+			return vertex
+		}
+
+		result := DFS(vertex, searchVal, visitedVertices)
+		if result != nil && result.value == searchVal {
+			return result
+		}
+	}
+
+	return nil
 }
