@@ -64,8 +64,8 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 		if err == nil {
 			t.Fatal("error for ReadAt should not be nil")
 		}
-		if got != -1 {
-			t.Fatalf("returned index for ReadAt(1) should be -1, got %d", got)
+		if got != 0 {
+			t.Fatalf("returned index for ReadAt(1) should be 0, got %d", got)
 		}
 	})
 
@@ -193,8 +193,8 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 		if err == nil {
 			t.Fatalf("error for ReadAt should no be nil")
 		}
-		if got != -1 {
-			t.Fatalf("ReadAt should have returned -1, got: %d", got)
+		if got != 0 {
+			t.Fatalf("ReadAt should have returned 0, got: %d", got)
 		}
 	})
 

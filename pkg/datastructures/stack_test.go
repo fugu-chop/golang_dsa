@@ -70,8 +70,8 @@ func TestStackPop(t *testing.T) {
 		_, _ = stack.Pop()
 
 		got, err := stack.Pop()
-		if got != -1 {
-			t.Fatalf("Pop should return -1 on empty stack, got: %d", got)
+		if got != 0 {
+			t.Fatalf("Pop should return 0 on empty stack, got: %d", got)
 		}
 		if err == nil {
 			t.Fatal("should have gottten error from Pop on empty stack")
@@ -114,7 +114,7 @@ func TestStackRead(t *testing.T) {
 		if err == nil {
 			t.Fatal("should have gottten error from Read on empty stack")
 		}
-		if got != -1 {
+		if got != 0 {
 			t.Fatalf("Read did not return correct result - got: %d, want: %d", got, 4)
 		}
 	})

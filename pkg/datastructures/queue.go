@@ -6,18 +6,18 @@ import "errors"
 queue is an implementation of a queue data structure. It contains a pointer
 to the first `node` type and the last `node` type it encompasses.
 */
-type queue struct {
-	firstNode *node
-	lastNode  *node
+type queue[T any] struct {
+	firstNode *node[T]
+	lastNode  *node[T]
 }
 
 // Queue returns a pointer to a new queue with a `node` of `val` value.
-func Queue(val int) queue {
-	newNode := &node{
+func Queue[T any](val T) queue[T] {
+	newNode := &node[T]{
 		value: val,
 	}
 
-	return queue{
+	return queue[T]{
 		firstNode: newNode,
 		lastNode:  newNode,
 	}
@@ -27,15 +27,15 @@ func Queue(val int) queue {
 Enqueue adds a pointer to a new `node` (with the value of `num`) to the end of the queue.
 Enqueue replaces the pointer of the `lastNode` to the newly created `node`.
 */
-func (q *queue) Enqueue(num int) int {
-	newNode := &node{
-		value: num,
+func (q *queue[T]) Enqueue(val T) T {
+	newNode := &node[T]{
+		value: val,
 	}
 
 	q.lastNode.next = newNode
 	q.lastNode = newNode
 
-	return num
+	return val
 }
 
 /*
@@ -44,9 +44,9 @@ a pointer to the node that was it's previous `next` node. It returns the value
 of the current `firstNode` (before pointer reassignment), or an error if there
 are no nodes in the queue.
 */
-func (q *queue) Dequeue() (int, error) {
+func (q *queue[T]) Dequeue() (T, error) {
 	if q.firstNode == nil {
-		return -1, errors.New("queue does not have any active nodes")
+		return *new(T), errors.New("queue does not have any active nodes")
 	}
 
 	val := q.firstNode.value
@@ -60,9 +60,9 @@ func (q *queue) Dequeue() (int, error) {
 Read returns the value associated with the `node` at the `firstNode` reference,
 or an error if there are no nodes in the queue.
 */
-func (q *queue) Read() (int, error) {
+func (q *queue[T]) Read() (T, error) {
 	if q.firstNode == nil {
-		return -1, errors.New("queue does not have any active nodes")
+		return *new(T), errors.New("queue does not have any active nodes")
 	}
 
 	return q.firstNode.value, nil

@@ -6,37 +6,37 @@ import "errors"
 stack is an implementation of a stack data structure. It contains a pointer
 to a `node`.
 */
-type stack struct {
-	currentNode *node
+type stack[T any] struct {
+	currentNode *node[T]
 }
 
 // Stack returns a new stack with a pointer to a `node` with `num` as it's value.
-func Stack(num int) stack {
-	return stack{
-		currentNode: &node{value: num},
+func Stack[T any](val T) stack[T] {
+	return stack[T]{
+		currentNode: &node[T]{value: val},
 	}
 }
 
 /*
 Push replaces the `currentNode` with a new `node` and returns it's value.
 */
-func (s *stack) Push(num int) int {
-	newNode := &node{
-		value: num,
+func (s *stack[T]) Push(val T) T {
+	newNode := &node[T]{
+		value: val,
 		next:  s.currentNode,
 	}
 
 	s.currentNode = newNode
-	return num
+	return val
 }
 
 /*
 Pop returns the value of the `node` referenced by `currentNode`.
 It then removes that node from the sequence of `node`s.
 */
-func (s *stack) Pop() (int, error) {
+func (s *stack[T]) Pop() (T, error) {
 	if s.currentNode == nil {
-		return -1, errors.New("no nodes exist in stack")
+		return *new(T), errors.New("no nodes exist in stack")
 	}
 
 	lastVal := s.currentNode.value
@@ -46,9 +46,9 @@ func (s *stack) Pop() (int, error) {
 }
 
 // Read returns the value of the `node` that is referenced by `currentNode`
-func (s *stack) Read() (int, error) {
+func (s *stack[T]) Read() (T, error) {
 	if s.currentNode == nil {
-		return -1, errors.New("no nodes exist in stack")
+		return *new(T), errors.New("no nodes exist in stack")
 	}
 
 	return s.currentNode.value, nil

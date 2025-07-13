@@ -62,8 +62,8 @@ func TestQueueDequeue(t *testing.T) {
 		for range 100 {
 			got, err := queue.Dequeue()
 
-			if got != -1 {
-				t.Fatalf("Dequeue on empty queue should return -1, got: %d", got)
+			if got != 0 {
+				t.Fatalf("Dequeue on empty queue should return 0, got: %d", got)
 			}
 			if err == nil {
 				t.Fatalf("should have errors on Dequeue of empty queue")
@@ -101,8 +101,8 @@ func TestQueueRead(t *testing.T) {
 
 		for range 10 {
 			result, err := queue.Read()
-			if result != -1 {
-				t.Fatalf("Read should raise an error - got: %d, want -1", result)
+			if result != 0 {
+				t.Fatalf("Read should raise an error - got: %d, want 0", result)
 			}
 			if err == nil {
 				t.Fatalf("should have errors on Read")
