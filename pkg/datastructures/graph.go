@@ -134,16 +134,21 @@ It returns a pointer to a `vertex` type if:
 Otherwise it returns nil.
 */
 func BFS(searchVertex *vertex, searchVal string) *vertex {
-	// TODO: Replace queue with generic Queue type
-	queue := []*vertex{}
+	queue := Queue(searchVertex)
 	visitedVertices := map[string]bool{}
 
-	queue = append(queue, searchVertex)
+	_ = queue.Enqueue(searchVertex)
 	visitedVertices[searchVertex.value] = true
 
-	for len(queue) > 0 {
-		searchVertex = queue[0]
-		queue = queue[1:]
+	for {
+		if _, err := queue.Read(); err != nil {
+			return nil
+		}
+
+		searchVertex, err := queue.Dequeue()
+		if err != nil {
+			return nil
+		}
 
 		if searchVertex.value == searchVal {
 			return searchVertex
@@ -160,9 +165,7 @@ func BFS(searchVertex *vertex, searchVal string) *vertex {
 
 			visitedVertices[vertex.value] = true
 
-			queue = append(queue, vertex)
+			_ = queue.Enqueue(vertex)
 		}
 	}
-
-	return nil
 }
