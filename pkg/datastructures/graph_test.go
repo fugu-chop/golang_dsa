@@ -172,3 +172,51 @@ func TestDFS(t *testing.T) {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", d, got)
 	}
 }
+
+func TestBFS(t *testing.T) {
+	t.Parallel()
+
+	graph := datastructures.Graph()
+
+	a := graph.Vertex("a")
+	b := graph.Vertex("b")
+	c := graph.Vertex("c")
+	d := graph.Vertex("d")
+	e := graph.Vertex("e")
+	f := graph.Vertex("f")
+	g := graph.Vertex("g")
+
+	/*
+		graph should look like:
+			   a
+			/ | \ \
+		   b  d  e-g
+		  /   |  | /
+		 c-----  f/
+	*/
+
+	a.AddDirectedVertex(b)
+	a.AddDirectedVertex(d)
+	b.AddDirectedVertex(c)
+	c.AddDirectedVertex(d)
+	a.AddDirectedVertex(e)
+	a.AddDirectedVertex(g)
+	e.AddDirectedVertex(g)
+	e.AddDirectedVertex(f)
+	f.AddDirectedVertex(g)
+
+	got := datastructures.BFS(a, "f")
+	if got != f {
+		t.Fatalf("expected to return vertex with value of: %v, got: %v", f, got)
+	}
+
+	got = datastructures.BFS(d, "f")
+	if got != nil {
+		t.Fatal("expected no vertex")
+	}
+
+	got = datastructures.BFS(d, "d")
+	if got != d {
+		t.Fatalf("expected to return vertex with value of: %v, got: %v", d, got)
+	}
+}

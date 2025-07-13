@@ -122,3 +122,47 @@ func DFS(searchVertex *vertex, searchVal string, visitedVertices map[string]bool
 
 	return nil
 }
+
+/*
+BFS performs breadth-first search on a `searchVertex` against a provided `searchVal` string.
+It returns a pointer to a `vertex` type if:
+
+  - A vertex exists with a value of `searchVal`; and
+
+  - That vertex has an edge to the `searchVertex`
+
+Otherwise it returns nil.
+*/
+func BFS(searchVertex *vertex, searchVal string) *vertex {
+	// TODO: Replace queue with generic Queue type
+	queue := []*vertex{}
+	visitedVertices := map[string]bool{}
+
+	queue = append(queue, searchVertex)
+	visitedVertices[searchVertex.value] = true
+
+	for len(queue) > 0 {
+		searchVertex = queue[0]
+		queue = queue[1:]
+
+		if searchVertex.value == searchVal {
+			return searchVertex
+		}
+
+		for _, vertex := range searchVertex.adjacentVertices {
+			if visitedVertices[vertex.value] {
+				continue
+			}
+
+			if vertex.value == searchVal {
+				return vertex
+			}
+
+			visitedVertices[vertex.value] = true
+
+			queue = append(queue, vertex)
+		}
+	}
+
+	return nil
+}
