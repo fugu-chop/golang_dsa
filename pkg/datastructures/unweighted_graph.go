@@ -5,19 +5,19 @@ import (
 )
 
 /*
-`graph` is a type used to contain all `vertex` types within a graph.
+`unweightedGraph` is a type used to contain all `vertex` types within a graph.
 It enables the overall data structure to retain references to disconnected
 vertices.
 */
-type graph struct {
+type unweightedGraph struct {
 	vertices map[string]*vertex
 }
 
 /*
-NewGraph creates a pointer to a new `graph` type.
+UnweightedGraph creates a pointer to a new `unweightedGraph` type.
 */
-func Graph() *graph {
-	return &graph{
+func UnweightedGraph() *unweightedGraph {
+	return &unweightedGraph{
 		vertices: make(map[string]*vertex),
 	}
 }
@@ -26,7 +26,7 @@ func Graph() *graph {
 ListVertices returns a map of all the vertices contained within
 a `graph` type, regardless of whether they are connected or not.
 */
-func (g *graph) ListVertices() map[string]*vertex {
+func (g *unweightedGraph) ListVertices() map[string]*vertex {
 	return g.vertices
 }
 
@@ -38,7 +38,7 @@ of `val` already exists within the graph.
 
   - If the value already exists, a pointer to the existing `vertex` type is returned
 */
-func (g *graph) Vertex(val string) *vertex {
+func (g *unweightedGraph) Vertex(val string) *vertex {
 	v, ok := g.vertices[val]
 	if ok {
 		return v
@@ -53,7 +53,7 @@ func (g *graph) Vertex(val string) *vertex {
 }
 
 /*
-`vertex` is a type used to implement a larger graph data structure.
+`vertex` is a type used to implement an unweighted graph data structure.
 It contains a string `value` and a slice of pointers to `vertex` types
 that represent edges between other vertices.
 */

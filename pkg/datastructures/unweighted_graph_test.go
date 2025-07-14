@@ -12,7 +12,7 @@ func TestVertex(t *testing.T) {
 	t.Run("creates a vertex within a graph", func(t *testing.T) {
 		t.Parallel()
 
-		g := datastructures.Graph()
+		g := datastructures.UnweightedGraph()
 
 		_ = g.Vertex("home")
 		_ = g.Vertex("a")
@@ -25,7 +25,7 @@ func TestVertex(t *testing.T) {
 	})
 
 	t.Run("does not duplicate vertices when value is same", func(t *testing.T) {
-		g := datastructures.Graph()
+		g := datastructures.UnweightedGraph()
 
 		_ = g.Vertex("home")
 		_ = g.Vertex("home")
@@ -41,7 +41,7 @@ func TestVertex(t *testing.T) {
 func TestValue(t *testing.T) {
 	t.Parallel()
 
-	g := datastructures.Graph()
+	g := datastructures.UnweightedGraph()
 
 	vertexValue := "home"
 	v := g.Vertex(vertexValue)
@@ -54,7 +54,7 @@ func TestValue(t *testing.T) {
 func TestAddDirectedVertex(t *testing.T) {
 	t.Parallel()
 
-	g := datastructures.Graph()
+	g := datastructures.UnweightedGraph()
 
 	v := g.Vertex("home")
 	a := g.Vertex("a")
@@ -86,7 +86,7 @@ func TestAddDirectedVertex(t *testing.T) {
 func TestAddUndirectedVertex(t *testing.T) {
 	t.Parallel()
 
-	g := datastructures.Graph()
+	g := datastructures.UnweightedGraph()
 
 	v := g.Vertex("home")
 	a := g.Vertex("a")
@@ -128,7 +128,7 @@ func TestAddUndirectedVertex(t *testing.T) {
 func TestDFS(t *testing.T) {
 	t.Parallel()
 
-	graph := datastructures.Graph()
+	graph := datastructures.UnweightedGraph()
 
 	a := graph.Vertex("a")
 	b := graph.Vertex("b")
@@ -176,7 +176,7 @@ func TestDFS(t *testing.T) {
 func TestBFS(t *testing.T) {
 	t.Parallel()
 
-	graph := datastructures.Graph()
+	graph := datastructures.UnweightedGraph()
 
 	a := graph.Vertex("a")
 	b := graph.Vertex("b")
