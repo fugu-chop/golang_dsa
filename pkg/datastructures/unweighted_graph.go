@@ -24,7 +24,7 @@ func UnweightedGraph() *unweightedGraph {
 
 /*
 ListVertices returns a map of all the vertices contained within
-a `graph` type, regardless of whether they are connected or not.
+an `unweightedGraph` type, regardless of whether they are connected or not.
 */
 func (g *unweightedGraph) ListVertices() map[string]*vertex {
 	return g.vertices
@@ -99,23 +99,23 @@ It returns a pointer to a `vertex` type if:
 Otherwise it returns nil.
 */
 func DFS(searchVertex *vertex, searchVal string, visitedVertices map[string]bool) *vertex {
-	visitedVertices[searchVertex.value] = true
+	visitedVertices[searchVertex.Value()] = true
 
 	if searchVertex.value == searchVal {
 		return searchVertex
 	}
 
 	for _, vertex := range searchVertex.adjacentVertices {
-		if visitedVertices[vertex.value] {
+		if visitedVertices[vertex.Value()] {
 			continue
 		}
 
-		if vertex.value == searchVal {
+		if vertex.Value() == searchVal {
 			return vertex
 		}
 
 		result := DFS(vertex, searchVal, visitedVertices)
-		if result != nil && result.value == searchVal {
+		if result != nil && result.Value() == searchVal {
 			return result
 		}
 	}
@@ -133,12 +133,12 @@ It returns a pointer to a `vertex` type if:
 
 Otherwise it returns nil.
 */
-func BFS(searchVertex *vertex, searchVal string) *vertex {
+func BFSUnweighted(searchVertex *vertex, searchVal string) *vertex {
 	queue := Queue(searchVertex)
 	visitedVertices := map[string]bool{}
 
 	_ = queue.Enqueue(searchVertex)
-	visitedVertices[searchVertex.value] = true
+	visitedVertices[searchVertex.Value()] = true
 
 	for {
 		if _, err := queue.Read(); err != nil {
@@ -150,20 +150,20 @@ func BFS(searchVertex *vertex, searchVal string) *vertex {
 			return nil
 		}
 
-		if searchVertex.value == searchVal {
+		if searchVertex.Value() == searchVal {
 			return searchVertex
 		}
 
 		for _, vertex := range searchVertex.adjacentVertices {
-			if visitedVertices[vertex.value] {
+			if visitedVertices[vertex.Value()] {
 				continue
 			}
 
-			if vertex.value == searchVal {
+			if vertex.Value() == searchVal {
 				return vertex
 			}
 
-			visitedVertices[vertex.value] = true
+			visitedVertices[vertex.Value()] = true
 
 			_ = queue.Enqueue(vertex)
 		}

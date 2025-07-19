@@ -47,7 +47,7 @@ func TestValue(t *testing.T) {
 	v := g.Vertex(vertexValue)
 
 	if v.Value() != vertexValue {
-		t.Fatalf("expected vertext to have value of %s, got: %s", vertexValue, v.Value())
+		t.Fatalf("expected vertex to have value of %s, got: %s", vertexValue, v.Value())
 	}
 }
 
@@ -205,17 +205,17 @@ func TestBFS(t *testing.T) {
 	e.AddDirectedVertex(f)
 	f.AddDirectedVertex(g)
 
-	got := datastructures.BFS(a, "f")
+	got := datastructures.BFSUnweighted(a, "f")
 	if got != f {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", f, got)
 	}
 
-	got = datastructures.BFS(d, "f")
+	got = datastructures.BFSUnweighted(d, "f")
 	if got != nil {
 		t.Fatal("expected no vertex")
 	}
 
-	got = datastructures.BFS(d, "d")
+	got = datastructures.BFSUnweighted(d, "d")
 	if got != d {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", d, got)
 	}
