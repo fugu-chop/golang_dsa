@@ -2,6 +2,7 @@ package datastructures_test
 
 import (
 	"math/rand"
+	"reflect"
 	"testing"
 
 	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
@@ -241,6 +242,42 @@ func TestWeightedBFS(t *testing.T) {
 
 func TestDijkstraShortestPath(t *testing.T) {
 	t.Parallel()
+
+	t.Run("returns the correct path and cost", func(t *testing.T) {
+		t.Parallel()
+
+		graph := datastructures.WeightedGraph()
+
+		a := graph.Vertex("Atlanta")
+		b := graph.Vertex("Boston")
+		c := graph.Vertex("Chicago")
+		d := graph.Vertex("Denver")
+		e := graph.Vertex("El Paso")
+
+		a.AddDirectedVertex(b, 100)
+		a.AddDirectedVertex(d, 160)
+		b.AddDirectedVertex(c, 120)
+		b.AddDirectedVertex(d, 180)
+		c.AddDirectedVertex(e, 80)
+		d.AddDirectedVertex(c, 40)
+		d.AddDirectedVertex(e, 140)
+		e.AddDirectedVertex(b, 100)
+
+		result := datastructures.DijkstraShortestPath(a, e)
+		if result == nil {
+			t.Fatal("expected result from connected vertices")
+		}
+		expected := []string{"Atlanta", "Denver", "Chicago", "El Paso"}
+		transformedResult := []string{}
+
+		for _, city := range result {
+			transformedResult = append(transformedResult, city.Value())
+		}
+
+		if !reflect.DeepEqual(transformedResult, expected) {
+			t.Fatalf("expected path: %v, got: %v", expected, transformedResult)
+		}
+	})
 
 	t.Run("returns nil if no edge exists", func(t *testing.T) {
 		t.Parallel()
