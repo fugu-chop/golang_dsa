@@ -93,12 +93,12 @@ func (v *weightedVertex) Value() string {
 /*
 Weight returns the underlying weight of an edge between two `weightedVertex`
 types. If an edge does not exist between the two `weightedVertex`,
-#Weight returns -1
+#Weight returns 0.
 */
 func (v *weightedVertex) Weight(vertex *weightedVertex) uint {
 	weight, ok := v.adjacentVertices[vertex]
 	if !ok {
-		// Assumption that all weights are >= 0
+		// Assumption that all weights are > 0
 		return 0
 	}
 	return weight
