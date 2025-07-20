@@ -47,7 +47,7 @@ func (g *weightedGraph) Vertex(val string) *weightedVertex {
 
 	newVertex := &weightedVertex{
 		value:            val,
-		adjacentVertices: make(map[*weightedVertex]int),
+		adjacentVertices: make(map[*weightedVertex]uint),
 	}
 	g.vertices[val] = newVertex
 	return newVertex
@@ -60,14 +60,14 @@ that represent edges between other vertices and their weight.
 */
 type weightedVertex struct {
 	value            string
-	adjacentVertices map[*weightedVertex]int
+	adjacentVertices map[*weightedVertex]uint
 }
 
 /*
 AddDirectedVertex adds a single directed, weighted edge between
 pointers to two `weightedVertex` types.
 */
-func (v *weightedVertex) AddDirectedVertex(newVertex *weightedVertex, weight int) {
+func (v *weightedVertex) AddDirectedVertex(newVertex *weightedVertex, weight uint) {
 	v.adjacentVertices[newVertex] = weight
 }
 
@@ -75,7 +75,7 @@ func (v *weightedVertex) AddDirectedVertex(newVertex *weightedVertex, weight int
 AddUndirectedVertex adds two undirected, weighted edges between
 pointers to two `weightedVertex` types.
 */
-func (v *weightedVertex) AddUndirectedVertex(newVertex *weightedVertex, weight int) {
+func (v *weightedVertex) AddUndirectedVertex(newVertex *weightedVertex, weight uint) {
 	// Avoid infinite loop
 	if _, ok := v.adjacentVertices[newVertex]; ok {
 		return
@@ -95,11 +95,11 @@ Weight returns the underlying weight of an edge between two `weightedVertex`
 types. If an edge does not exist between the two `weightedVertex`,
 #Weight returns -1
 */
-func (v *weightedVertex) Weight(vertex *weightedVertex) int {
+func (v *weightedVertex) Weight(vertex *weightedVertex) uint {
 	weight, ok := v.adjacentVertices[vertex]
 	if !ok {
 		// Assumption that all weights are >= 0
-		return -1
+		return 0
 	}
 	return weight
 }
@@ -197,7 +197,7 @@ If there is no sequence of edges between `start` and `end`, DijkstraShortestPath
 returns nil.
 */
 func DijkstraShortestPath(start, end *weightedVertex) []*weightedVertex {
-	lowestCost := map[*weightedVertex]int{start: 0}
+	lowestCost := map[*weightedVertex]uint{start: 0}
 	lowestPreviousVertex := make(map[*weightedVertex]*weightedVertex)
 	unvisitedVertices := make(map[*weightedVertex]bool)
 	visitedVertices := make(map[*weightedVertex]bool)
@@ -221,7 +221,9 @@ func DijkstraShortestPath(start, end *weightedVertex) []*weightedVertex {
 			}
 		}
 
-		lowestWeight := math.MaxInt
+		//	Find the next unvisited vertex to visit based on lowest
+		//	weight from `start`
+		var lowestWeight uint = math.MaxUint
 		for vertex := range unvisitedVertices {
 			weight, ok := lowestCost[vertex]
 			if ok && weight < lowestWeight {
@@ -230,11 +232,12 @@ func DijkstraShortestPath(start, end *weightedVertex) []*weightedVertex {
 			}
 		}
 		// Terminate the loop if unvisitedVertices is empty
-		if lowestWeight == math.MaxInt {
+		if lowestWeight == math.MaxUint {
 			currentVertex = nil
 		}
 	}
 
+	// Construct the sequence of vertices based on lowestPreviousVertex
 	shortestPath := []*weightedVertex{}
 	currentVertex = end
 	for currentVertex != start {

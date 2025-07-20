@@ -63,7 +63,7 @@ func TestWeightedWeight(t *testing.T) {
 		v := g.Vertex("home")
 		x := g.Vertex("away")
 
-		expected := rand.Intn(10)
+		expected := uint(rand.Intn(10))
 		v.AddDirectedVertex(x, expected)
 
 		if v.Weight(x) != expected {
@@ -79,7 +79,7 @@ func TestWeightedWeight(t *testing.T) {
 		v := g.Vertex("home")
 		x := g.Vertex("away")
 
-		expected := rand.Intn(10)
+		expected := uint(rand.Intn(10))
 		v.AddUndirectedVertex(x, expected)
 
 		if v.Weight(x) != expected {
@@ -95,7 +95,7 @@ func TestWeightedWeight(t *testing.T) {
 		v := g.Vertex("home")
 		x := g.Vertex("away")
 
-		if v.Weight(x) != -1 {
+		if v.Weight(x) != 0 {
 			t.Fatalf("expected vertex to have weight of -1, got: %d", v.Weight(x))
 		}
 	})
@@ -109,8 +109,8 @@ func TestAddUndirectedWeightedVertex(t *testing.T) {
 	v := g.Vertex("home")
 	a := g.Vertex("a")
 	b := g.Vertex("b")
-	v.AddUndirectedVertex(a, rand.Intn(10))
-	v.AddUndirectedVertex(b, rand.Intn(10))
+	v.AddUndirectedVertex(a, uint(rand.Intn(10)))
+	v.AddUndirectedVertex(b, uint(rand.Intn(10)))
 
 	connectedVertexA := datastructures.DFSWeighted(v, "a", map[string]bool{})
 	if connectedVertexA == nil {
@@ -165,15 +165,15 @@ func TestWeightedDFS(t *testing.T) {
 		 c-----  f/
 	*/
 
-	a.AddDirectedVertex(b, rand.Intn(10))
-	a.AddDirectedVertex(d, rand.Intn(10))
-	b.AddDirectedVertex(c, rand.Intn(10))
-	c.AddDirectedVertex(d, rand.Intn(10))
-	a.AddDirectedVertex(e, rand.Intn(10))
-	a.AddDirectedVertex(g, rand.Intn(10))
-	e.AddDirectedVertex(g, rand.Intn(10))
-	e.AddDirectedVertex(f, rand.Intn(10))
-	f.AddDirectedVertex(g, rand.Intn(10))
+	a.AddDirectedVertex(b, uint(rand.Intn(10)))
+	a.AddDirectedVertex(d, uint(rand.Intn(10)))
+	b.AddDirectedVertex(c, uint(rand.Intn(10)))
+	c.AddDirectedVertex(d, uint(rand.Intn(10)))
+	a.AddDirectedVertex(e, uint(rand.Intn(10)))
+	a.AddDirectedVertex(g, uint(rand.Intn(10)))
+	e.AddDirectedVertex(g, uint(rand.Intn(10)))
+	e.AddDirectedVertex(f, uint(rand.Intn(10)))
+	f.AddDirectedVertex(g, uint(rand.Intn(10)))
 
 	got := datastructures.DFSWeighted(a, "f", map[string]bool{})
 	if got != f {
@@ -213,15 +213,15 @@ func TestWeightedBFS(t *testing.T) {
 		 c-----  f/
 	*/
 
-	a.AddDirectedVertex(b, rand.Intn(10))
-	a.AddDirectedVertex(d, rand.Intn(10))
-	b.AddDirectedVertex(c, rand.Intn(10))
-	c.AddDirectedVertex(d, rand.Intn(10))
-	a.AddDirectedVertex(e, rand.Intn(10))
-	a.AddDirectedVertex(g, rand.Intn(10))
-	e.AddDirectedVertex(g, rand.Intn(10))
-	e.AddDirectedVertex(f, rand.Intn(10))
-	f.AddDirectedVertex(g, rand.Intn(10))
+	a.AddDirectedVertex(b, uint(rand.Intn(10)))
+	a.AddDirectedVertex(d, uint(rand.Intn(10)))
+	b.AddDirectedVertex(c, uint(rand.Intn(10)))
+	c.AddDirectedVertex(d, uint(rand.Intn(10)))
+	a.AddDirectedVertex(e, uint(rand.Intn(10)))
+	a.AddDirectedVertex(g, uint(rand.Intn(10)))
+	e.AddDirectedVertex(g, uint(rand.Intn(10)))
+	e.AddDirectedVertex(f, uint(rand.Intn(10)))
+	f.AddDirectedVertex(g, uint(rand.Intn(10)))
 
 	got := datastructures.BFSWeighted(a, "f")
 	if got != f {
