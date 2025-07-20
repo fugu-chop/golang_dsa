@@ -98,7 +98,7 @@ It returns a pointer to a `vertex` type if:
 
 Otherwise it returns nil.
 */
-func DFS(searchVertex *vertex, searchVal string, visitedVertices map[string]bool) *vertex {
+func DFSUnweighted(searchVertex *vertex, searchVal string, visitedVertices map[string]bool) *vertex {
 	visitedVertices[searchVertex.Value()] = true
 
 	if searchVertex.value == searchVal {
@@ -114,7 +114,7 @@ func DFS(searchVertex *vertex, searchVal string, visitedVertices map[string]bool
 			return vertex
 		}
 
-		result := DFS(vertex, searchVal, visitedVertices)
+		result := DFSUnweighted(vertex, searchVal, visitedVertices)
 		if result != nil && result.Value() == searchVal {
 			return result
 		}
