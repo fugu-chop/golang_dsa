@@ -210,3 +210,53 @@ func TestQuicksort(t *testing.T) {
 		})
 	}
 }
+
+func TestMergesort(t *testing.T) {
+	t.Parallel()
+
+	data := map[string]struct {
+		inputSlice  []int
+		outputSlice []int
+	}{
+		"sorts": {
+			inputSlice:  []int{9, 5, 7, 6, 1, 2},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
+		"sorts again": {
+			inputSlice:  []int{5, 9, 7, 6, 1, 2},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
+		"sorts more": {
+			inputSlice:  []int{5, 7, 9, 6, 2, 1},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
+		"doesn't get out of bounds errors": {
+			inputSlice:  []int{9, 7, 6, 5, 2, 1},
+			outputSlice: []int{1, 2, 5, 6, 7, 9},
+		},
+		"works on single length slices": {
+			inputSlice:  []int{5},
+			outputSlice: []int{5},
+		},
+		"works on two length slices": {
+			inputSlice:  []int{5, 1},
+			outputSlice: []int{1, 5},
+		},
+	}
+
+	for testName, test := range data {
+		t.Run(testName, func(t *testing.T) {
+			tc := test
+
+			t.Parallel()
+
+			got := algorithms.Mergesort(tc.inputSlice)
+			if !reflect.DeepEqual(got, tc.outputSlice) {
+				t.Fatalf("Mergesort did not sort correctly: got: %+v, want: %+v",
+					got,
+					tc.outputSlice,
+				)
+			}
+		})
+	}
+}

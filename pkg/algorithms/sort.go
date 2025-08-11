@@ -118,3 +118,58 @@ func partition(arr []int, leftIdx int, rightIdx int) int {
 
 	return leftIdx
 }
+
+/*
+Mergesort takes an unsorted slice of int and outputs a new slice
+such that the ints are ascending using a merge sort algorithm
+(i.e. the algorithm is non-mutating).
+*/
+func Mergesort(items []int) []int {
+	if len(items) < 2 {
+		return items
+	}
+
+	first := Mergesort(items[len(items)/2:])
+	second := Mergesort(items[:len(items)/2])
+
+	return merge(first, second)
+}
+
+/*
+merge takes two int slices and returns a new slice with the elements in ascending order.
+It assumes that both `first` and `second` slices passed to it are in ascending order.
+*/
+func merge(first []int, second []int) []int {
+	final := []int{}
+	i := 0
+	j := 0
+
+	// Only iterate as far as the minimum length of the two slices
+	// We have to keep two index variables as we may need to repeatedly
+	// compare the same element.
+	for i < len(first) && j < len(second) {
+		if first[i] < second[j] {
+			final = append(final, first[i])
+			i++
+		} else {
+			final = append(final, second[j])
+			j++
+		}
+	}
+
+	/*
+		These are the 'leftover' elements if one slice is longer than the other
+		Since both slices are already in ascending order, it is safe to append
+		the remainder since they must be larger than all other elements.
+	*/
+
+	for ; i < len(first); i++ {
+		final = append(final, first[i])
+	}
+
+	for ; j < len(second); j++ {
+		final = append(final, second[j])
+	}
+
+	return final
+}
