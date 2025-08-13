@@ -148,7 +148,7 @@ func merge(first []int, second []int) []int {
 	// We have to keep two index variables as we may need to repeatedly
 	// compare the same element.
 	for i < len(first) && j < len(second) {
-		if first[i] < second[j] {
+		if first[i] <= second[j] {
 			final = append(final, first[i])
 			i++
 		} else {
