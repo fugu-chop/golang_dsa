@@ -1,10 +1,9 @@
 package datastructures
 
 /*
-binaryHeap is an implementation of a Binary Heap data structure.
-It contains a slice of integers instead of references to nodes to
-allow easier access to the last 'node' in the heap.
-This makes deletion of nodes much easier.
+binaryHeap is an implementation of a Binary Heap data structure
+in a max-heap configuration. It contains a slice of integers to
+enable constant time access to the last element in the heap.
 */
 type binaryHeap struct {
 	heap []int
