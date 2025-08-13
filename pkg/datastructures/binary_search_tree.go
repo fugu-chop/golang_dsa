@@ -104,8 +104,8 @@ Delete follows these rules:
     are no more left children. The bottom value is the successor node.
 
   - If the successor node has a right child, after plugging the successor node into the spot of
-    the deleted node, take the former right child of the successor node and turn it into the
-    left child of the new parent of the successor node.
+    the deleted node, take the former right child of the successor node and place it where the
+    successor node used to be.
 */
 func (b *binarySearchTree) Delete(val int, node *doubleLinkedNode) *doubleLinkedNode {
 	// node with value of `val` does not exist
