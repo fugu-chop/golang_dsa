@@ -1,10 +1,8 @@
-package datastructures_test
+package datastructures
 
 import (
 	"reflect"
 	"testing"
-
-	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
 )
 
 func TestTrie_Insert(t *testing.T) {
@@ -13,7 +11,7 @@ func TestTrie_Insert(t *testing.T) {
 	t.Run("creates new child nodes from root", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("bus")
 
 		letters := trie.Traverse(trie.Root(), []string{})
@@ -26,7 +24,7 @@ func TestTrie_Insert(t *testing.T) {
 	t.Run("appends to exising root", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("cat")
 		trie.Insert("car")
 
@@ -47,7 +45,7 @@ func TestTrie_Insert(t *testing.T) {
 	t.Run("is no-op when all letters already exist", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("zoo")
 		trie.Insert("zoo")
 
@@ -65,7 +63,7 @@ func TestTrie_Search(t *testing.T) {
 	t.Run("searches when word exists", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("blimp")
 
 		node := trie.Search("blimp")
@@ -77,7 +75,7 @@ func TestTrie_Search(t *testing.T) {
 	t.Run("doesn't return result when word partially exists", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("blim")
 
 		node := trie.Search("blimp")
@@ -89,7 +87,7 @@ func TestTrie_Search(t *testing.T) {
 	t.Run("doesn't return result when word doesn't exist", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("animal")
 
 		node := trie.Search("kangaroo")
@@ -105,7 +103,7 @@ func TestTrie_Autocomplete(t *testing.T) {
 	t.Run("handles partial prefixes", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("animal")
 		trie.Insert("animus")
 		trie.Insert("animosity")
@@ -127,7 +125,7 @@ func TestTrie_Autocomplete(t *testing.T) {
 	t.Run("returns empty slice if prefix overflows", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("anima")
 
 		prefix := "animal"
@@ -141,7 +139,7 @@ func TestTrie_Autocomplete(t *testing.T) {
 	t.Run("returns empty slice if doesn't exist", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("animal")
 
 		prefix := "bonk"
@@ -159,7 +157,7 @@ func TestTrie_Traverse(t *testing.T) {
 	t.Run("traverses multiple structures", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("car")
 		trie.Insert("cartouche")
 		trie.Insert("cartographer")
@@ -185,7 +183,7 @@ func TestTrie_Traverse(t *testing.T) {
 	t.Run("when root node has no children, returns", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 
 		letters := trie.Traverse(trie.Root(), []string{})
 		if len(letters) != 0 {
@@ -196,7 +194,7 @@ func TestTrie_Traverse(t *testing.T) {
 	t.Run("when node has no children, returns", func(t *testing.T) {
 		t.Parallel()
 
-		trie := datastructures.Trie()
+		trie := Trie()
 		trie.Insert("car")
 
 		node := trie.Search("car")

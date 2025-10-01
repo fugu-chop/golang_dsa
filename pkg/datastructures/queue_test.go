@@ -1,15 +1,13 @@
-package datastructures_test
+package datastructures
 
 import (
 	"testing"
-
-	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
 )
 
 func TestQueueEnqueue(t *testing.T) {
 	t.Parallel()
 
-	queue := datastructures.Queue(0)
+	queue := Queue(0)
 
 	for i := 1; i < 5; i++ {
 		got := queue.Enqueue(i)
@@ -25,7 +23,7 @@ func TestQueueDequeue(t *testing.T) {
 	t.Run("populated queue", func(t *testing.T) {
 		t.Parallel()
 
-		queue := datastructures.Queue(0)
+		queue := Queue(0)
 
 		for i := 1; i < 10; i++ {
 			_ = queue.Enqueue(i)
@@ -55,7 +53,7 @@ func TestQueueDequeue(t *testing.T) {
 	t.Run("empty queue", func(t *testing.T) {
 		t.Parallel()
 
-		queue := datastructures.Queue(0)
+		queue := Queue(0)
 
 		_, _ = queue.Dequeue()
 
@@ -76,7 +74,7 @@ func TestQueueRead(t *testing.T) {
 	t.Run("populated queue", func(t *testing.T) {
 		t.Parallel()
 
-		queue := datastructures.Queue(0)
+		queue := Queue(0)
 
 		for i := range 5 {
 			_ = queue.Enqueue(i)
@@ -95,7 +93,7 @@ func TestQueueRead(t *testing.T) {
 	t.Run("empty queue", func(t *testing.T) {
 		t.Parallel()
 
-		queue := datastructures.Queue(0)
+		queue := Queue(0)
 
 		_, _ = queue.Dequeue()
 

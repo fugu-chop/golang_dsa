@@ -1,11 +1,9 @@
-package datastructures_test
+package datastructures
 
 import (
 	"math/rand"
 	"reflect"
 	"testing"
-
-	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
 )
 
 func TestBinarySearchTree_InsertAndSearch(t *testing.T) {
@@ -19,7 +17,7 @@ func TestBinarySearchTree_InsertAndSearch(t *testing.T) {
 			randInts = append(randInts, rand.Intn(100))
 		}
 
-		b := datastructures.BinarySearchTree(randInts[0])
+		b := BinarySearchTree(randInts[0])
 
 		for _, num := range randInts[1:] {
 			b.Insert(num, b.CurrentNode)
@@ -36,7 +34,7 @@ func TestBinarySearchTree_InsertAndSearch(t *testing.T) {
 	t.Run("returns nil when no node exists", func(t *testing.T) {
 		t.Parallel()
 
-		b := datastructures.BinarySearchTree(5)
+		b := BinarySearchTree(5)
 
 		result := b.Search(3, b.CurrentNode)
 		if result != nil {
@@ -51,7 +49,7 @@ func TestBinarySearchTree_Delete(t *testing.T) {
 	t.Run("returns root node when node does not exist", func(t *testing.T) {
 		t.Parallel()
 
-		b := datastructures.BinarySearchTree(3)
+		b := BinarySearchTree(3)
 
 		result := b.Delete(999, b.CurrentNode)
 		if result != b.CurrentNode {
@@ -66,7 +64,7 @@ func TestBinarySearchTree_Delete(t *testing.T) {
 		t.Parallel()
 
 		vals := []int{1, 6, 5, 8, 2, 3}
-		b := datastructures.BinarySearchTree(4)
+		b := BinarySearchTree(4)
 		for _, val := range vals {
 			b.Insert(val, b.CurrentNode)
 		}
@@ -88,7 +86,7 @@ func TestBinarySearchTree_Delete(t *testing.T) {
 		t.Parallel()
 
 		vals := []int{1, 6, 5, 8, 2}
-		b := datastructures.BinarySearchTree(4)
+		b := BinarySearchTree(4)
 		for _, val := range vals {
 			b.Insert(val, b.CurrentNode)
 		}
@@ -110,7 +108,7 @@ func TestBinarySearchTree_Delete(t *testing.T) {
 		t.Parallel()
 
 		vals := []int{1, 6, 5, 2, 3}
-		b := datastructures.BinarySearchTree(4)
+		b := BinarySearchTree(4)
 		for _, val := range vals {
 			b.Insert(val, b.CurrentNode)
 		}
@@ -133,7 +131,7 @@ func TestBinarySearchTree_Delete(t *testing.T) {
 
 		rootNodeVal := 4
 		vals := []int{2, 7, 5, 8, 1, 3, 6}
-		b := datastructures.BinarySearchTree(rootNodeVal)
+		b := BinarySearchTree(rootNodeVal)
 		for _, val := range vals {
 			b.Insert(val, b.CurrentNode)
 		}
@@ -157,7 +155,7 @@ func TestBinarySearchTree_Traverse(t *testing.T) {
 	t.Parallel()
 
 	vals := []int{1, 6, 5, 8, 2, 3}
-	b := datastructures.BinarySearchTree(4)
+	b := BinarySearchTree(4)
 	for _, val := range vals {
 		b.Insert(val, b.CurrentNode)
 	}

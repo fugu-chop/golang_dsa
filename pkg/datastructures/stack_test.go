@@ -1,15 +1,13 @@
-package datastructures_test
+package datastructures
 
 import (
 	"testing"
-
-	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
 )
 
 func TestStackPush(t *testing.T) {
 	t.Parallel()
 
-	stack := datastructures.Stack(0)
+	stack := Stack(0)
 	for i := 1; i < 10; i++ {
 		got := stack.Push(i)
 
@@ -33,7 +31,7 @@ func TestStackPop(t *testing.T) {
 	t.Run("populated stack", func(t *testing.T) {
 		t.Parallel()
 
-		stack := datastructures.Stack(0)
+		stack := Stack(0)
 		for i := 1; i <= 4; i++ {
 			_ = stack.Push(i)
 		}
@@ -66,7 +64,7 @@ func TestStackPop(t *testing.T) {
 	t.Run("empty stack", func(t *testing.T) {
 		t.Parallel()
 
-		stack := datastructures.Stack(0)
+		stack := Stack(0)
 		_, _ = stack.Pop()
 
 		got, err := stack.Pop()
@@ -85,7 +83,7 @@ func TestStackRead(t *testing.T) {
 	t.Run("populated stack", func(t *testing.T) {
 		t.Parallel()
 
-		stack := datastructures.Stack(0)
+		stack := Stack(0)
 
 		for i := 1; i < 5; i++ {
 			_ = stack.Push(i)
@@ -106,7 +104,7 @@ func TestStackRead(t *testing.T) {
 	t.Run("empty stack", func(t *testing.T) {
 		t.Parallel()
 
-		stack := datastructures.Stack(0)
+		stack := Stack(0)
 
 		_, _ = stack.Pop()
 		got, err := stack.Read()

@@ -1,9 +1,7 @@
-package datastructures_test
+package datastructures
 
 import (
 	"testing"
-
-	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
 )
 
 func TestVertex(t *testing.T) {
@@ -12,7 +10,7 @@ func TestVertex(t *testing.T) {
 	t.Run("creates a vertex within a graph", func(t *testing.T) {
 		t.Parallel()
 
-		g := datastructures.UnweightedGraph()
+		g := UnweightedGraph()
 
 		_ = g.Vertex("home")
 		_ = g.Vertex("a")
@@ -25,7 +23,7 @@ func TestVertex(t *testing.T) {
 	})
 
 	t.Run("does not duplicate vertices when value is same", func(t *testing.T) {
-		g := datastructures.UnweightedGraph()
+		g := UnweightedGraph()
 
 		_ = g.Vertex("home")
 		_ = g.Vertex("home")
@@ -41,7 +39,7 @@ func TestVertex(t *testing.T) {
 func TestValue(t *testing.T) {
 	t.Parallel()
 
-	g := datastructures.UnweightedGraph()
+	g := UnweightedGraph()
 
 	vertexValue := "home"
 	v := g.Vertex(vertexValue)
@@ -54,7 +52,7 @@ func TestValue(t *testing.T) {
 func TestAddDirectedVertex(t *testing.T) {
 	t.Parallel()
 
-	g := datastructures.UnweightedGraph()
+	g := UnweightedGraph()
 
 	v := g.Vertex("home")
 	a := g.Vertex("a")
@@ -62,22 +60,22 @@ func TestAddDirectedVertex(t *testing.T) {
 	v.AddDirectedVertex(a)
 	v.AddDirectedVertex(b)
 
-	connectedVertexA := datastructures.DFSUnweighted(v, "a", map[string]bool{})
+	connectedVertexA := DFSUnweighted(v, "a", map[string]bool{})
 	if connectedVertexA == nil {
 		t.Fatal("expected home vertex to have edge to a")
 	}
 
-	connectedVertexB := datastructures.DFSUnweighted(v, "b", map[string]bool{})
+	connectedVertexB := DFSUnweighted(v, "b", map[string]bool{})
 	if connectedVertexB == nil {
 		t.Fatal("expected home vertex to have edge to b")
 	}
 
-	unconnectedVertex := datastructures.DFSUnweighted(a, "home", map[string]bool{})
+	unconnectedVertex := DFSUnweighted(a, "home", map[string]bool{})
 	if unconnectedVertex != nil {
 		t.Fatalf("expected vertex to have no edge, got: %v", unconnectedVertex)
 	}
 
-	unconnectedVertex = datastructures.DFSUnweighted(b, "home", map[string]bool{})
+	unconnectedVertex = DFSUnweighted(b, "home", map[string]bool{})
 	if unconnectedVertex != nil {
 		t.Fatalf("expected vertex to have no edge, got: %v", unconnectedVertex)
 	}
@@ -86,7 +84,7 @@ func TestAddDirectedVertex(t *testing.T) {
 func TestAddUndirectedVertex(t *testing.T) {
 	t.Parallel()
 
-	g := datastructures.UnweightedGraph()
+	g := UnweightedGraph()
 
 	v := g.Vertex("home")
 	a := g.Vertex("a")
@@ -94,32 +92,32 @@ func TestAddUndirectedVertex(t *testing.T) {
 	v.AddUndirectedVertex(a)
 	v.AddUndirectedVertex(b)
 
-	connectedVertexA := datastructures.DFSUnweighted(v, "a", map[string]bool{})
+	connectedVertexA := DFSUnweighted(v, "a", map[string]bool{})
 	if connectedVertexA == nil {
 		t.Fatal("expected home vertex to have edge to a")
 	}
 
-	connectedVertexB := datastructures.DFSUnweighted(v, "b", map[string]bool{})
+	connectedVertexB := DFSUnweighted(v, "b", map[string]bool{})
 	if connectedVertexB == nil {
 		t.Fatal("expected home vertex to have edge to b")
 	}
 
-	connectedVertex := datastructures.DFSUnweighted(a, "home", map[string]bool{})
+	connectedVertex := DFSUnweighted(a, "home", map[string]bool{})
 	if connectedVertex == nil {
 		t.Fatal("expected vertex a to have edge to home")
 	}
 
-	connectedVertex = datastructures.DFSUnweighted(b, "home", map[string]bool{})
+	connectedVertex = DFSUnweighted(b, "home", map[string]bool{})
 	if connectedVertex == nil {
 		t.Fatal("expected vertex b to have edge to home")
 	}
 
-	connectedVertex = datastructures.DFSUnweighted(a, "b", map[string]bool{})
+	connectedVertex = DFSUnweighted(a, "b", map[string]bool{})
 	if connectedVertex == nil {
 		t.Fatal("expected vertex a to have edge to b")
 	}
 
-	connectedVertex = datastructures.DFSUnweighted(b, "a", map[string]bool{})
+	connectedVertex = DFSUnweighted(b, "a", map[string]bool{})
 	if connectedVertex == nil {
 		t.Fatal("expected vertex b to have edge to a")
 	}
@@ -128,7 +126,7 @@ func TestAddUndirectedVertex(t *testing.T) {
 func TestDFS(t *testing.T) {
 	t.Parallel()
 
-	graph := datastructures.UnweightedGraph()
+	graph := UnweightedGraph()
 
 	a := graph.Vertex("a")
 	b := graph.Vertex("b")
@@ -157,17 +155,17 @@ func TestDFS(t *testing.T) {
 	e.AddDirectedVertex(f)
 	f.AddDirectedVertex(g)
 
-	got := datastructures.DFSUnweighted(a, "f", map[string]bool{})
+	got := DFSUnweighted(a, "f", map[string]bool{})
 	if got != f {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", f, got)
 	}
 
-	got = datastructures.DFSUnweighted(d, "f", map[string]bool{})
+	got = DFSUnweighted(d, "f", map[string]bool{})
 	if got != nil {
 		t.Fatal("expected no vertex")
 	}
 
-	got = datastructures.DFSUnweighted(d, "d", map[string]bool{})
+	got = DFSUnweighted(d, "d", map[string]bool{})
 	if got != d {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", d, got)
 	}
@@ -176,7 +174,7 @@ func TestDFS(t *testing.T) {
 func TestBFS(t *testing.T) {
 	t.Parallel()
 
-	graph := datastructures.UnweightedGraph()
+	graph := UnweightedGraph()
 
 	a := graph.Vertex("a")
 	b := graph.Vertex("b")
@@ -205,17 +203,17 @@ func TestBFS(t *testing.T) {
 	e.AddDirectedVertex(f)
 	f.AddDirectedVertex(g)
 
-	got := datastructures.BFSUnweighted(a, "f")
+	got := BFSUnweighted(a, "f")
 	if got != f {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", f, got)
 	}
 
-	got = datastructures.BFSUnweighted(d, "f")
+	got = BFSUnweighted(d, "f")
 	if got != nil {
 		t.Fatal("expected no vertex")
 	}
 
-	got = datastructures.BFSUnweighted(d, "d")
+	got = BFSUnweighted(d, "d")
 	if got != d {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", d, got)
 	}

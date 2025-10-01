@@ -1,9 +1,7 @@
-package datastructures_test
+package datastructures
 
 import (
 	"testing"
-
-	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
 )
 
 func TestLinkedList_ReadandInsert(t *testing.T) {
@@ -12,7 +10,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("inserts when no element exists at next node", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -46,7 +44,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("inserts at index 0", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(5)
+		linkedList := LinkedList(5)
 
 		if err := linkedList.InsertAt(0, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -72,7 +70,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("inserts when next node already exists", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -85,7 +83,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("returns an error when node chan is broken", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -127,7 +125,7 @@ func TestLinkedList_IndexOf(t *testing.T) {
 	t.Run("returns the index of a value that exists", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 97); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -145,7 +143,7 @@ func TestLinkedList_IndexOf(t *testing.T) {
 	t.Run("returns an error if the value does not exist", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -167,7 +165,7 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	t.Run("deletes when element exists at node", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -201,7 +199,7 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	t.Run("returns an error when node does not exist", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		if err := linkedList.DeleteAt(1); err == nil {
 			t.Fatal("error for DeleteAt should not be nil")
@@ -215,7 +213,7 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	t.Run("handles zero index deletion", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		if err := linkedList.InsertAt(1, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -237,7 +235,7 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	t.Run("cannot delete to leave an empty linked list", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := LinkedList(0)
 
 		for range 3 {
 			if err := linkedList.DeleteAt(0); err != nil {
@@ -253,7 +251,7 @@ func TestReverse(t *testing.T) {
 	t.Run("reverses in place", func(t *testing.T) {
 		t.Parallel()
 
-		ll := datastructures.LinkedList(0)
+		ll := LinkedList(0)
 		_ = ll.InsertAt(1, 1)
 		_ = ll.InsertAt(2, 2)
 
@@ -291,7 +289,7 @@ func TestReverse(t *testing.T) {
 	t.Run("handles one element linked list", func(t *testing.T) {
 		t.Parallel()
 
-		ll := datastructures.LinkedList(0)
+		ll := LinkedList(0)
 		if err := ll.DeleteAt(0); err != nil {
 			t.Fatal("can't delete at index 0")
 		}

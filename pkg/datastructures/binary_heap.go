@@ -72,13 +72,6 @@ func (b *binaryHeap) Delete() *int {
 }
 
 /*
-Show returns the entire heap. It is used primarily for debugging and testing purposes.
-*/
-func (b *binaryHeap) Show() []int {
-	return b.heap
-}
-
-/*
 lastNode returns the last element in the heap (i.e. the last element in the slice).
 */
 func (b *binaryHeap) lastNode() int {
@@ -102,11 +95,8 @@ largerChildNodeIdx returns the index of a node where that node's value is
 larger than it's parent.
 */
 func (b *binaryHeap) largerChildNodeIdx(idx int) int {
-	// In theory this should be an out of bounds check
-	// but I cannot get a test case to simulate this
-
-	// No right child
-	if rightChildIdx(idx) >= len(b.heap) {
+	// No OOB check as hasGreaterChild will filter out such cases
+	if rightChildIdx(idx) > len(b.heap) {
 		return leftChildIdx(idx)
 	}
 

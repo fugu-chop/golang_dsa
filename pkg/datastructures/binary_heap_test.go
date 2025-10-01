@@ -1,11 +1,18 @@
-package datastructures_test
+package datastructures
 
 import (
 	"reflect"
 	"testing"
-
-	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
 )
+
+/*
+show returns the entire heap. It is used primarily for debugging and testing purposes.
+*/
+func show(t *testing.T, b *binaryHeap) []int {
+	t.Helper()
+
+	return b.heap
+}
 
 func TestBinaryHeap_Insert(t *testing.T) {
 	t.Parallel()
@@ -14,7 +21,7 @@ func TestBinaryHeap_Insert(t *testing.T) {
 		t.Parallel()
 
 		rootNode := 5
-		heap := datastructures.BinaryHeap(rootNode)
+		heap := BinaryHeap(rootNode)
 
 		for i := 1; i < 5; i++ {
 			heap.Insert(i)
@@ -26,15 +33,15 @@ func TestBinaryHeap_Insert(t *testing.T) {
 			t.Fatalf("expected first node: %d, got: %d", rootNode, heap.FirstNode())
 		}
 
-		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
-			t.Fatalf("expected heap: %+v, got: %+v", expectedHeap, heap.Show())
+		if !reflect.DeepEqual(show(t, heap), expectedHeap) {
+			t.Fatalf("expected heap: %+v, got: %+v", expectedHeap, show(t, heap))
 		}
 
 	})
 
 	t.Run("replaces root node when inserted value is higher", func(t *testing.T) {
 		t.Parallel()
-		heap := datastructures.BinaryHeap(5)
+		heap := BinaryHeap(5)
 
 		heap.Insert(8)
 
@@ -50,8 +57,8 @@ func TestBinaryHeap_Insert(t *testing.T) {
 
 		expectedHeap := []int{10, 5, 8}
 
-		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
-			t.Fatalf("expected heap: %+v, got: %+v", expectedHeap, heap.Show())
+		if !reflect.DeepEqual(show(t, heap), expectedHeap) {
+			t.Fatalf("expected heap: %+v, got: %+v", expectedHeap, show(t, heap))
 		}
 
 	})
@@ -65,15 +72,15 @@ func TestBinaryHeap_Delete(t *testing.T) {
 
 		rootVal := 5
 
-		heap := datastructures.BinaryHeap(rootVal)
+		heap := BinaryHeap(rootVal)
 		for i := 1; i < 5; i++ {
 			heap.Insert(i)
 		}
 
 		expectedHeap := []int{5, 4, 2, 1, 3}
 
-		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
-			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		if !reflect.DeepEqual(show(t, heap), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, show(t, heap))
 		}
 
 		got := heap.Delete()
@@ -83,8 +90,8 @@ func TestBinaryHeap_Delete(t *testing.T) {
 
 		expectedHeap = []int{4, 3, 2, 1}
 
-		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
-			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		if !reflect.DeepEqual(show(t, heap), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, show(t, heap))
 		}
 	})
 
@@ -93,15 +100,15 @@ func TestBinaryHeap_Delete(t *testing.T) {
 
 		rootVal := 7
 
-		heap := datastructures.BinaryHeap(rootVal)
+		heap := BinaryHeap(rootVal)
 		for i := 1; i < 7; i++ {
 			heap.Insert(i)
 		}
 
 		expectedHeap := []int{7, 4, 6, 1, 3, 2, 5}
 
-		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
-			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		if !reflect.DeepEqual(show(t, heap), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, show(t, heap))
 		}
 
 		got := heap.Delete()
@@ -111,8 +118,8 @@ func TestBinaryHeap_Delete(t *testing.T) {
 
 		expectedHeap = []int{6, 4, 5, 1, 3, 2}
 
-		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
-			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		if !reflect.DeepEqual(show(t, heap), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, show(t, heap))
 		}
 	})
 
@@ -120,7 +127,7 @@ func TestBinaryHeap_Delete(t *testing.T) {
 		t.Parallel()
 
 		rootVal := 7
-		heap := datastructures.BinaryHeap(rootVal)
+		heap := BinaryHeap(rootVal)
 
 		got := heap.Delete()
 		if *got != rootVal {
@@ -129,8 +136,8 @@ func TestBinaryHeap_Delete(t *testing.T) {
 
 		expectedHeap := []int{}
 
-		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
-			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		if !reflect.DeepEqual(show(t, heap), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, show(t, heap))
 		}
 
 		got = heap.Delete()
@@ -140,8 +147,8 @@ func TestBinaryHeap_Delete(t *testing.T) {
 
 		expectedHeap = []int{}
 
-		if !reflect.DeepEqual(heap.Show(), expectedHeap) {
-			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, heap.Show())
+		if !reflect.DeepEqual(show(t, heap), expectedHeap) {
+			t.Fatalf("expected deletion to result in: %+v, got: %+v", expectedHeap, show(t, heap))
 		}
 	})
 }

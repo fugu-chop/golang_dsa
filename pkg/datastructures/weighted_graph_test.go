@@ -1,11 +1,9 @@
-package datastructures_test
+package datastructures
 
 import (
 	"math/rand"
 	"reflect"
 	"testing"
-
-	"github.com/fugu-chop/golang_dsa/pkg/datastructures"
 )
 
 func TestWeightedVertex(t *testing.T) {
@@ -14,7 +12,7 @@ func TestWeightedVertex(t *testing.T) {
 	t.Run("creates a vertex within a graph", func(t *testing.T) {
 		t.Parallel()
 
-		g := datastructures.WeightedGraph()
+		g := WeightedGraph()
 
 		_ = g.Vertex("home")
 		_ = g.Vertex("a")
@@ -27,7 +25,7 @@ func TestWeightedVertex(t *testing.T) {
 	})
 
 	t.Run("does not duplicate vertices when value is same", func(t *testing.T) {
-		g := datastructures.WeightedGraph()
+		g := WeightedGraph()
 
 		_ = g.Vertex("home")
 		_ = g.Vertex("home")
@@ -43,7 +41,7 @@ func TestWeightedVertex(t *testing.T) {
 func TestWeightedValue(t *testing.T) {
 	t.Parallel()
 
-	g := datastructures.WeightedGraph()
+	g := WeightedGraph()
 
 	vertexValue := "home"
 	v := g.Vertex(vertexValue)
@@ -59,7 +57,7 @@ func TestWeightedWeight(t *testing.T) {
 	t.Run("works for directed vertices", func(t *testing.T) {
 		t.Parallel()
 
-		g := datastructures.WeightedGraph()
+		g := WeightedGraph()
 
 		v := g.Vertex("home")
 		x := g.Vertex("away")
@@ -75,7 +73,7 @@ func TestWeightedWeight(t *testing.T) {
 	t.Run("works for undirected vertices", func(t *testing.T) {
 		t.Parallel()
 
-		g := datastructures.WeightedGraph()
+		g := WeightedGraph()
 
 		v := g.Vertex("home")
 		x := g.Vertex("away")
@@ -91,7 +89,7 @@ func TestWeightedWeight(t *testing.T) {
 	t.Run("returns -1 if no edge exists", func(t *testing.T) {
 		t.Parallel()
 
-		g := datastructures.WeightedGraph()
+		g := WeightedGraph()
 
 		v := g.Vertex("home")
 		x := g.Vertex("away")
@@ -105,7 +103,7 @@ func TestWeightedWeight(t *testing.T) {
 func TestAddUndirectedWeightedVertex(t *testing.T) {
 	t.Parallel()
 
-	g := datastructures.WeightedGraph()
+	g := WeightedGraph()
 
 	v := g.Vertex("home")
 	a := g.Vertex("a")
@@ -113,32 +111,32 @@ func TestAddUndirectedWeightedVertex(t *testing.T) {
 	v.AddUndirectedVertex(a, uint(rand.Intn(10)))
 	v.AddUndirectedVertex(b, uint(rand.Intn(10)))
 
-	connectedVertexA := datastructures.DFSWeighted(v, "a", map[string]bool{})
+	connectedVertexA := DFSWeighted(v, "a", map[string]bool{})
 	if connectedVertexA == nil {
 		t.Fatal("expected home vertex to have edge to a")
 	}
 
-	connectedVertexB := datastructures.DFSWeighted(v, "b", map[string]bool{})
+	connectedVertexB := DFSWeighted(v, "b", map[string]bool{})
 	if connectedVertexB == nil {
 		t.Fatal("expected home vertex to have edge to b")
 	}
 
-	connectedVertex := datastructures.DFSWeighted(a, "home", map[string]bool{})
+	connectedVertex := DFSWeighted(a, "home", map[string]bool{})
 	if connectedVertex == nil {
 		t.Fatal("expected vertex a to have edge to home")
 	}
 
-	connectedVertex = datastructures.DFSWeighted(b, "home", map[string]bool{})
+	connectedVertex = DFSWeighted(b, "home", map[string]bool{})
 	if connectedVertex == nil {
 		t.Fatal("expected vertex b to have edge to home")
 	}
 
-	connectedVertex = datastructures.DFSWeighted(a, "b", map[string]bool{})
+	connectedVertex = DFSWeighted(a, "b", map[string]bool{})
 	if connectedVertex == nil {
 		t.Fatal("expected vertex a to have edge to b")
 	}
 
-	connectedVertex = datastructures.DFSWeighted(b, "a", map[string]bool{})
+	connectedVertex = DFSWeighted(b, "a", map[string]bool{})
 	if connectedVertex == nil {
 		t.Fatal("expected vertex b to have edge to a")
 	}
@@ -147,7 +145,7 @@ func TestAddUndirectedWeightedVertex(t *testing.T) {
 func TestWeightedDFS(t *testing.T) {
 	t.Parallel()
 
-	graph := datastructures.WeightedGraph()
+	graph := WeightedGraph()
 
 	a := graph.Vertex("a")
 	b := graph.Vertex("b")
@@ -176,17 +174,17 @@ func TestWeightedDFS(t *testing.T) {
 	e.AddDirectedVertex(f, uint(rand.Intn(10)))
 	f.AddDirectedVertex(g, uint(rand.Intn(10)))
 
-	got := datastructures.DFSWeighted(a, "f", map[string]bool{})
+	got := DFSWeighted(a, "f", map[string]bool{})
 	if got != f {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", f, got)
 	}
 
-	got = datastructures.DFSWeighted(d, "f", map[string]bool{})
+	got = DFSWeighted(d, "f", map[string]bool{})
 	if got != nil {
 		t.Fatal("expected no vertex")
 	}
 
-	got = datastructures.DFSWeighted(d, "d", map[string]bool{})
+	got = DFSWeighted(d, "d", map[string]bool{})
 	if got != d {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", d, got)
 	}
@@ -195,7 +193,7 @@ func TestWeightedDFS(t *testing.T) {
 func TestWeightedBFS(t *testing.T) {
 	t.Parallel()
 
-	graph := datastructures.WeightedGraph()
+	graph := WeightedGraph()
 
 	a := graph.Vertex("a")
 	b := graph.Vertex("b")
@@ -224,17 +222,17 @@ func TestWeightedBFS(t *testing.T) {
 	e.AddDirectedVertex(f, uint(rand.Intn(10)))
 	f.AddDirectedVertex(g, uint(rand.Intn(10)))
 
-	got := datastructures.BFSWeighted(a, "f")
+	got := BFSWeighted(a, "f")
 	if got != f {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", f, got)
 	}
 
-	got = datastructures.BFSWeighted(d, "f")
+	got = BFSWeighted(d, "f")
 	if got != nil {
 		t.Fatal("expected no vertex")
 	}
 
-	got = datastructures.BFSWeighted(d, "d")
+	got = BFSWeighted(d, "d")
 	if got != d {
 		t.Fatalf("expected to return vertex with value of: %v, got: %v", d, got)
 	}
@@ -246,7 +244,7 @@ func TestDijkstraShortestPath(t *testing.T) {
 	t.Run("returns the correct path and cost", func(t *testing.T) {
 		t.Parallel()
 
-		graph := datastructures.WeightedGraph()
+		graph := WeightedGraph()
 
 		a := graph.Vertex("Atlanta")
 		b := graph.Vertex("Boston")
@@ -263,7 +261,7 @@ func TestDijkstraShortestPath(t *testing.T) {
 		d.AddDirectedVertex(e, 140)
 		e.AddDirectedVertex(b, 100)
 
-		result := datastructures.DijkstraShortestPath(a, e)
+		result := DijkstraShortestPath(a, e)
 		if result == nil {
 			t.Fatal("expected result from connected vertices")
 		}
@@ -282,12 +280,12 @@ func TestDijkstraShortestPath(t *testing.T) {
 	t.Run("returns nil if no edge exists", func(t *testing.T) {
 		t.Parallel()
 
-		graph := datastructures.WeightedGraph()
+		graph := WeightedGraph()
 
 		a := graph.Vertex("a")
 		b := graph.Vertex("b")
 
-		result := datastructures.DijkstraShortestPath(a, b)
+		result := DijkstraShortestPath(a, b)
 		if result != nil {
 			t.Fatalf("expected no result from unconnected vertices, got: %v", result)
 		}
