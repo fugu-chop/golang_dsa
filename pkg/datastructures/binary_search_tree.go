@@ -88,7 +88,7 @@ Delete removes a node from the binary search tree. Delete is a no-op if:
 
   - The value does not exist within the binarySearchTree; or
 
-  - The node being deleted is the root node.
+  - The node being deleted is the root node and it has no child nodes.
 
 Otherwise returns the root node (or the node that replaces the root node).
 
