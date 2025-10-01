@@ -46,7 +46,7 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 	t.Run("inserts at index 0", func(t *testing.T) {
 		t.Parallel()
 
-		linkedList := datastructures.LinkedList(0)
+		linkedList := datastructures.LinkedList(5)
 
 		if err := linkedList.InsertAt(0, 1); err != nil {
 			t.Fatalf("error for InsertAt should be nil, got: %v", err)
@@ -61,11 +61,11 @@ func TestLinkedList_ReadandInsert(t *testing.T) {
 		}
 
 		got, err = linkedList.ReadAt(1)
-		if err == nil {
-			t.Fatal("error for ReadAt should not be nil")
+		if err != nil {
+			t.Fatalf("error for ReadAt should be nil, got: %v", err)
 		}
-		if got != 0 {
-			t.Fatalf("returned index for ReadAt(1) should be 0, got %d", got)
+		if got != 5 {
+			t.Fatalf("returned index for ReadAt(1) should be 5, got %d", got)
 		}
 	})
 

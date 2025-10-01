@@ -75,7 +75,7 @@ func (l *linkedList[T]) InsertAt(idx int, val T) error {
 	}
 
 	if idx == 0 {
-		newNode.next = l.node.next
+		newNode.next = l.node
 		l.node = newNode
 		return nil
 	}

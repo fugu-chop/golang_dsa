@@ -84,9 +84,13 @@ func (b *binarySearchTree) Insert(val int, node *doubleLinkedNode) {
 }
 
 /*
-Delete removes a node from the binary search tree. If the value does not
-exist within the binarySearchTree, Delete is a no-op. Otherwise returns the
-root node (or the node that replaces the root node).
+Delete removes a node from the binary search tree. Delete is a no-op if:
+
+  - The value does not exist within the binarySearchTree; or
+
+  - The node being deleted is the root node.
+
+Otherwise returns the root node (or the node that replaces the root node).
 
 Delete follows these rules:
 
