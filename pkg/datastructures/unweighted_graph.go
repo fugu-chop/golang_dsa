@@ -135,10 +135,9 @@ Otherwise it returns nil.
 */
 func BFSUnweighted(searchVertex *vertex, searchVal string) *vertex {
 	queue := Queue(searchVertex)
-	visitedVertices := map[string]bool{}
-
-	_ = queue.Enqueue(searchVertex)
-	visitedVertices[searchVertex.Value()] = true
+	visitedVertices := map[string]bool{
+		searchVertex.Value(): true,
+	}
 
 	for {
 		if _, err := queue.Read(); err != nil {

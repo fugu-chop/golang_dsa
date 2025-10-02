@@ -32,6 +32,11 @@ func (q *queue[T]) Enqueue(val T) T {
 		value: val,
 	}
 
+	if q.firstNode == nil {
+		q.firstNode = newNode
+		q.lastNode = newNode
+	}
+
 	q.lastNode.next = newNode
 	q.lastNode = newNode
 

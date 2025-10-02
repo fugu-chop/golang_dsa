@@ -151,10 +151,9 @@ Otherwise it returns nil.
 */
 func BFSWeighted(searchVertex *weightedVertex, searchVal string) *weightedVertex {
 	queue := Queue(searchVertex)
-	visitedVertices := map[string]bool{}
-
-	_ = queue.Enqueue(searchVertex)
-	visitedVertices[searchVertex.value] = true
+	visitedVertices := map[string]bool{
+		searchVertex.value: true,
+	}
 
 	for {
 		if _, err := queue.Read(); err != nil {
