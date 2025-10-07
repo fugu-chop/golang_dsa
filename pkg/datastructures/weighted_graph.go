@@ -115,11 +115,11 @@ It returns a pointer to a `weightedVertex` type if:
 Otherwise it returns nil.
 */
 func DFSWeighted(searchVertex *weightedVertex, searchVal string, visitedVertices map[string]bool) *weightedVertex {
-	visitedVertices[searchVertex.value] = true
-
 	if searchVertex.value == searchVal {
 		return searchVertex
 	}
+
+	visitedVertices[searchVertex.value] = true
 
 	for vertex := range searchVertex.adjacentVertices {
 		if visitedVertices[vertex.Value()] {
@@ -130,8 +130,7 @@ func DFSWeighted(searchVertex *weightedVertex, searchVal string, visitedVertices
 			return vertex
 		}
 
-		result := DFSWeighted(vertex, searchVal, visitedVertices)
-		if result != nil && result.value == searchVal {
+		if result := DFSWeighted(vertex, searchVal, visitedVertices); result != nil {
 			return result
 		}
 	}

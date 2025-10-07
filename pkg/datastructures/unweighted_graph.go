@@ -99,11 +99,11 @@ It returns a pointer to a `vertex` type if:
 Otherwise it returns nil.
 */
 func DFSUnweighted(searchVertex *vertex, searchVal string, visitedVertices map[string]bool) *vertex {
-	visitedVertices[searchVertex.Value()] = true
-
 	if searchVertex.value == searchVal {
 		return searchVertex
 	}
+
+	visitedVertices[searchVertex.Value()] = true
 
 	for _, vertex := range searchVertex.adjacentVertices {
 		if visitedVertices[vertex.Value()] {
@@ -114,8 +114,7 @@ func DFSUnweighted(searchVertex *vertex, searchVal string, visitedVertices map[s
 			return vertex
 		}
 
-		result := DFSUnweighted(vertex, searchVal, visitedVertices)
-		if result != nil && result.Value() == searchVal {
+		if result := DFSUnweighted(vertex, searchVal, visitedVertices); result != nil {
 			return result
 		}
 	}
